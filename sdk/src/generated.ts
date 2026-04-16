@@ -2787,7 +2787,7 @@ export const readRerangeHubGetOrderState = /*#__PURE__*/ createReadContract({
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
  * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
  */
-export const readRerangeHubHubConfig = /*#__PURE__*/ createReadContract({
+export const readRerangeHubConfig = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
   address: rerangeHubAddress,
   functionName: 'hubConfig',
@@ -3208,7 +3208,7 @@ export const watchRerangeHubAdapterAllowedUpdatedEvent =
  * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
  * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
  */
-export const watchRerangeHubHubConfigUpdatedEvent =
+export const watchRerangeHubConfigUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
     abi: rerangeHubAbi,
     address: rerangeHubAddress,

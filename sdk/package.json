@@ -1,16 +1,29 @@
 {
   "name": "@rerange/wagmi",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Rerange Wagmi SDK",
-  "homepage": "https://github.com/rerange-xyz/info#readme",
-  "repository": "https://github.com/rerange-xyz/info",
-  "keywords": ["liquid", "orders"],
+  "keywords": [
+    "liquid",
+    "orders"
+  ],
+  "homepage": "https://rerange.xyz",
+  "bugs": {
+    "url": "https://github.com/rerange-xyz/info/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rerange-xyz/info.git"
+  },
+  "license": "MIT",
+  "author": "rerange.xyz",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
   },
+  "main": "index.js",
   "files": [
-    "src"
+    "src",
+    "README.md"
   ],
   "scripts": {
     "sync": "node ./scripts/sync.js",
