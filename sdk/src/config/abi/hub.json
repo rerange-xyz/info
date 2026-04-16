@@ -1,0 +1,4760 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner_",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "AdapterNotAllowed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FailedDeployment",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "balance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "needed",
+        "type": "uint256"
+      }
+    ],
+    "name": "InsufficientBalance",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidConfig",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidConfig",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidConfig",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidDirection",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidNativeValue",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidPermit",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidVault",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "OrderLocked",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ProtocolPaused",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ToxicPrice",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TransferFailed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "Unauthorized",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UnknownOrder",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ZeroCapital",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "adapter",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "allowed",
+        "type": "bool"
+      }
+    ],
+    "name": "AdapterAllowedUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "permit2",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "treasury",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "weth",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "resolverShareBps",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "referrerShareBps",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "rerangeCooldown",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint16",
+        "name": "completionThresholdBps",
+        "type": "uint16"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "paused",
+        "type": "bool"
+      }
+    ],
+    "name": "HubConfigUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "resolver",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "referrer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "accruedFee0",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "accruedFee1",
+        "type": "uint256"
+      }
+    ],
+    "name": "OrderClosed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "vault",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "orderIndex",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "adapter",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isSell",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "int24",
+        "name": "targetTick",
+        "type": "int24"
+      }
+    ],
+    "name": "OrderOpened",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "int24",
+        "name": "lowerTick",
+        "type": "int24"
+      },
+      {
+        "indexed": false,
+        "internalType": "int24",
+        "name": "upperTick",
+        "type": "int24"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "sourceBalance",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint32",
+        "name": "rerangeCount",
+        "type": "uint32"
+      }
+    ],
+    "name": "OrderReranged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "vaultIndex",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "vault",
+        "type": "address"
+      }
+    ],
+    "name": "VaultCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "adapters",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32[]",
+        "name": "orderKeys",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "batchRerange",
+    "outputs": [
+      {
+        "internalType": "bool[]",
+        "name": "success",
+        "type": "bool[]"
+      },
+      {
+        "internalType": "bytes[]",
+        "name": "results",
+        "type": "bytes[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "close",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vault",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "adapter",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token0",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "capital",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "isSell",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "targetTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "triggerTicks",
+                "type": "uint24"
+              },
+              {
+                "internalType": "bytes",
+                "name": "adapterData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "referrer",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "keepBalancesInVault",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "unwrapOut",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closed",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint32",
+                "name": "rerangeCount",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint40",
+                "name": "createdAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "lastRerangeAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle1",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct RerangeTypes.Order",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint128",
+                "name": "liquidity",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "sourceBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "targetBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "int24",
+                "name": "lowerTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "upperTick",
+                "type": "int24"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PositionView",
+            "name": "position",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "sourceBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "willClose",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextLowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextUpperTick",
+            "type": "int24"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "removePlan",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "activatePlan",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OrderActionPreview",
+        "name": "preview",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "createVault",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "vault",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getOrder",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "vault",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "adapter",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token0",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token1",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "capital",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isSell",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "targetTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "triggerTicks",
+            "type": "uint24"
+          },
+          {
+            "internalType": "bytes",
+            "name": "adapterData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "referrer",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "keepBalancesInVault",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "unwrapOut",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "closed",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint32",
+            "name": "rerangeCount",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint40",
+            "name": "createdAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "lastRerangeAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint256",
+            "name": "accruedFee0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "accruedFee1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "idle0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "idle1",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct RerangeTypes.Order",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "vault",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "orderIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "getOrderByIndex",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "vault",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "adapter",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token0",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token1",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "capital",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isSell",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "targetTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "triggerTicks",
+            "type": "uint24"
+          },
+          {
+            "internalType": "bytes",
+            "name": "adapterData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "referrer",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "keepBalancesInVault",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "unwrapOut",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "closed",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint32",
+            "name": "rerangeCount",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint40",
+            "name": "createdAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "lastRerangeAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint256",
+            "name": "accruedFee0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "accruedFee1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "idle0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "idle1",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct RerangeTypes.Order",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "vault",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "orderIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "getOrderKey",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getOrderState",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vault",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "adapter",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token0",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "capital",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "isSell",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "targetTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "triggerTicks",
+                "type": "uint24"
+              },
+              {
+                "internalType": "bytes",
+                "name": "adapterData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "referrer",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "keepBalancesInVault",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "unwrapOut",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closed",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint32",
+                "name": "rerangeCount",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint40",
+                "name": "createdAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "lastRerangeAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle1",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct RerangeTypes.Order",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "internalType": "enum RerangeTypes.OrderStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "int24",
+            "name": "lowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "upperTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "uint128",
+            "name": "liquidity",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint32",
+            "name": "rerangeCount",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint256",
+            "name": "progressBps",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "remainingSource",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "convertedTarget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "accruedFee0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "accruedFee1",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OrderStateView",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "hubConfig",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "permit2",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "treasury",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "weth",
+        "type": "address"
+      },
+      {
+        "internalType": "uint16",
+        "name": "resolverShareBps",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "referrerShareBps",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint32",
+        "name": "rerangeCooldown",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint16",
+        "name": "completionThresholdBps",
+        "type": "uint16"
+      },
+      {
+        "internalType": "bool",
+        "name": "paused",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "isOrderClosed",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "data",
+        "type": "bytes[]"
+      }
+    ],
+    "name": "multicall",
+    "outputs": [
+      {
+        "internalType": "bytes[]",
+        "name": "results",
+        "type": "bytes[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "vault",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "adapter",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token0",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token1",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "capital",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isSell",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "targetTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "triggerTicks",
+            "type": "uint24"
+          },
+          {
+            "internalType": "bytes",
+            "name": "adapterConfig",
+            "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "referrer",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "keepBalancesInVault",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "unwrapOut",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct RerangeTypes.CreateOrderParams",
+        "name": "params",
+        "type": "tuple"
+      }
+    ],
+    "name": "open",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vault",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "adapter",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token0",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "capital",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "isSell",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "targetTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "triggerTicks",
+                "type": "uint24"
+              },
+              {
+                "internalType": "bytes",
+                "name": "adapterData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "referrer",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "keepBalancesInVault",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "unwrapOut",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closed",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint32",
+                "name": "rerangeCount",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint40",
+                "name": "createdAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "lastRerangeAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle1",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct RerangeTypes.Order",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint128",
+                "name": "liquidity",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "sourceBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "targetBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "int24",
+                "name": "lowerTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "upperTick",
+                "type": "int24"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PositionView",
+            "name": "position",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "sourceBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "willClose",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextLowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextUpperTick",
+            "type": "int24"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "removePlan",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "activatePlan",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OrderActionPreview",
+        "name": "preview",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "vault",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "adapter",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token0",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token1",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "capital",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isSell",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "targetTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "triggerTicks",
+            "type": "uint24"
+          },
+          {
+            "internalType": "bytes",
+            "name": "adapterConfig",
+            "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "referrer",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "keepBalancesInVault",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "unwrapOut",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct RerangeTypes.CreateOrderParams",
+        "name": "params",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "token",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct ISignatureTransfer.TokenPermissions",
+            "name": "permitted",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nonce",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deadline",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct ISignatureTransfer.PermitTransferFrom",
+        "name": "permit",
+        "type": "tuple"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "open2",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vault",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "adapter",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token0",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "capital",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "isSell",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "targetTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "triggerTicks",
+                "type": "uint24"
+              },
+              {
+                "internalType": "bytes",
+                "name": "adapterData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "referrer",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "keepBalancesInVault",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "unwrapOut",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closed",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint32",
+                "name": "rerangeCount",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint40",
+                "name": "createdAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "lastRerangeAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle1",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct RerangeTypes.Order",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint128",
+                "name": "liquidity",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "sourceBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "targetBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "int24",
+                "name": "lowerTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "upperTick",
+                "type": "int24"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PositionView",
+            "name": "position",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "sourceBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "willClose",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextLowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextUpperTick",
+            "type": "int24"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "removePlan",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "activatePlan",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OrderActionPreview",
+        "name": "preview",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "orders",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "vault",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "adapter",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token0",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token1",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "capital",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isSell",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "targetTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "triggerTicks",
+            "type": "uint24"
+          },
+          {
+            "internalType": "bytes",
+            "name": "adapterData",
+            "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "referrer",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "keepBalancesInVault",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "unwrapOut",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "closed",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint32",
+            "name": "rerangeCount",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint40",
+            "name": "createdAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint40",
+            "name": "lastRerangeAt",
+            "type": "uint40"
+          },
+          {
+            "internalType": "uint256",
+            "name": "accruedFee0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "accruedFee1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "idle0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "idle1",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct RerangeTypes.Order",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "vaultIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "predictVault",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "previewClose",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vault",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "adapter",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token0",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "capital",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "isSell",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "targetTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "triggerTicks",
+                "type": "uint24"
+              },
+              {
+                "internalType": "bytes",
+                "name": "adapterData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "referrer",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "keepBalancesInVault",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "unwrapOut",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closed",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint32",
+                "name": "rerangeCount",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint40",
+                "name": "createdAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "lastRerangeAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle1",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct RerangeTypes.Order",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint128",
+                "name": "liquidity",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "sourceBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "targetBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "int24",
+                "name": "lowerTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "upperTick",
+                "type": "int24"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PositionView",
+            "name": "position",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "sourceBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "willClose",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextLowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextUpperTick",
+            "type": "int24"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "removePlan",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "activatePlan",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OrderActionPreview",
+        "name": "preview",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner_",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "vault",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "adapter",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token0",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token1",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "capital",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isSell",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "targetTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "uint24",
+            "name": "triggerTicks",
+            "type": "uint24"
+          },
+          {
+            "internalType": "bytes",
+            "name": "adapterConfig",
+            "type": "bytes"
+          },
+          {
+            "internalType": "address",
+            "name": "referrer",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "keepBalancesInVault",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "unwrapOut",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct RerangeTypes.CreateOrderParams",
+        "name": "params",
+        "type": "tuple"
+      }
+    ],
+    "name": "previewOpen",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "vault",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "vaultExists",
+            "type": "bool"
+          },
+          {
+            "internalType": "bytes",
+            "name": "adapterData",
+            "type": "bytes"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          },
+          {
+            "internalType": "int24",
+            "name": "tickSpacing",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "lowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "upperTick",
+            "type": "int24"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "activationPlan",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OpenPreview",
+        "name": "preview",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "int24",
+        "name": "targetTick",
+        "type": "int24"
+      },
+      {
+        "internalType": "uint24",
+        "name": "triggerTicks",
+        "type": "uint24"
+      }
+    ],
+    "name": "previewRerange",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vault",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "adapter",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token0",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "capital",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "isSell",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "targetTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "triggerTicks",
+                "type": "uint24"
+              },
+              {
+                "internalType": "bytes",
+                "name": "adapterData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "referrer",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "keepBalancesInVault",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "unwrapOut",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closed",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint32",
+                "name": "rerangeCount",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint40",
+                "name": "createdAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "lastRerangeAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle1",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct RerangeTypes.Order",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint128",
+                "name": "liquidity",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "sourceBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "targetBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "int24",
+                "name": "lowerTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "upperTick",
+                "type": "int24"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PositionView",
+            "name": "position",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "sourceBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "willClose",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextLowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextUpperTick",
+            "type": "int24"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "removePlan",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "activatePlan",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OrderActionPreview",
+        "name": "preview",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "previewRerange",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vault",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "adapter",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token0",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "capital",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "isSell",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "targetTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "triggerTicks",
+                "type": "uint24"
+              },
+              {
+                "internalType": "bytes",
+                "name": "adapterData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "referrer",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "keepBalancesInVault",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "unwrapOut",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closed",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint32",
+                "name": "rerangeCount",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint40",
+                "name": "createdAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "lastRerangeAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle1",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct RerangeTypes.Order",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint128",
+                "name": "liquidity",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "sourceBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "targetBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "int24",
+                "name": "lowerTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "upperTick",
+                "type": "int24"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PositionView",
+            "name": "position",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "sourceBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "willClose",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextLowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextUpperTick",
+            "type": "int24"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "removePlan",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "activatePlan",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OrderActionPreview",
+        "name": "preview",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "rerange",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vault",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "adapter",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token0",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "capital",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "isSell",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "targetTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "triggerTicks",
+                "type": "uint24"
+              },
+              {
+                "internalType": "bytes",
+                "name": "adapterData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "referrer",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "keepBalancesInVault",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "unwrapOut",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closed",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint32",
+                "name": "rerangeCount",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint40",
+                "name": "createdAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "lastRerangeAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle1",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct RerangeTypes.Order",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint128",
+                "name": "liquidity",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "sourceBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "targetBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "int24",
+                "name": "lowerTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "upperTick",
+                "type": "int24"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PositionView",
+            "name": "position",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "sourceBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "willClose",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextLowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextUpperTick",
+            "type": "int24"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "removePlan",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "activatePlan",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OrderActionPreview",
+        "name": "preview",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "orderKey",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "int24",
+        "name": "targetTick",
+        "type": "int24"
+      },
+      {
+        "internalType": "uint24",
+        "name": "triggerTicks",
+        "type": "uint24"
+      }
+    ],
+    "name": "rerange",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "vault",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "adapter",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token0",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "token1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "capital",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "isSell",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "targetTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "triggerTicks",
+                "type": "uint24"
+              },
+              {
+                "internalType": "bytes",
+                "name": "adapterData",
+                "type": "bytes"
+              },
+              {
+                "internalType": "address",
+                "name": "referrer",
+                "type": "address"
+              },
+              {
+                "internalType": "bool",
+                "name": "keepBalancesInVault",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "unwrapOut",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closed",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint32",
+                "name": "rerangeCount",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint40",
+                "name": "createdAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint40",
+                "name": "lastRerangeAt",
+                "type": "uint40"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "accruedFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "idle1",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct RerangeTypes.Order",
+            "name": "order",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "int24",
+                "name": "currentTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "twapTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint160",
+                "name": "sqrtPriceX96",
+                "type": "uint160"
+              },
+              {
+                "internalType": "uint128",
+                "name": "poolLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PoolState",
+            "name": "market",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint128",
+                "name": "liquidity",
+                "type": "uint128"
+              },
+              {
+                "internalType": "uint256",
+                "name": "sourceBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "targetBalance",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "pendingFee1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "int24",
+                "name": "lowerTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "upperTick",
+                "type": "int24"
+              }
+            ],
+            "internalType": "struct RerangeTypes.PositionView",
+            "name": "position",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward0",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reward1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "sourceBalance",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "willClose",
+            "type": "bool"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextLowerTick",
+            "type": "int24"
+          },
+          {
+            "internalType": "int24",
+            "name": "nextUpperTick",
+            "type": "int24"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "removePlan",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "bool",
+                "name": "collectFees",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "removeLiquidity",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "activateOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "bool",
+                "name": "closeOrder",
+                "type": "bool"
+              },
+              {
+                "internalType": "int24",
+                "name": "expectedTick",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickLower",
+                "type": "int24"
+              },
+              {
+                "internalType": "int24",
+                "name": "activateTickUpper",
+                "type": "int24"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "deployAmount1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minRemove1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate0",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "minActivate1",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint128",
+                "name": "minActivateLiquidity",
+                "type": "uint128"
+              }
+            ],
+            "internalType": "struct RerangeTypes.ExecutionPlan",
+            "name": "activatePlan",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct RerangeTypes.OrderActionPreview",
+        "name": "preview",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "adapter",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "allowed",
+        "type": "bool"
+      }
+    ],
+    "name": "setAdapterAllowed",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "permit2",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "treasury",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "weth",
+            "type": "address"
+          },
+          {
+            "internalType": "uint16",
+            "name": "resolverShareBps",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint16",
+            "name": "referrerShareBps",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint32",
+            "name": "rerangeCooldown",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint16",
+            "name": "completionThresholdBps",
+            "type": "uint16"
+          },
+          {
+            "internalType": "bool",
+            "name": "paused",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct RerangeTypes.HubConfig",
+        "name": "config_",
+        "type": "tuple"
+      }
+    ],
+    "name": "setConfig",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "vaultImplementation",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "vaultOrderCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "vaults",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

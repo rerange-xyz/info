@@ -1,0 +1,19 @@
+{
+  "name": "@rerange/protocol",
+  "version": "1.0.2",
+  "type": "module",
+  "scripts": {
+    "test": "hardhat test --network hardhat --no-compile",
+    "format": "prettier --write \"**/*.{ts,js,json,md,yml,yaml}\""
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.3",
+    "@types/node": "^22.19.15",
+    "hardhat": "^3.1.11",
+    "typescript": "~5.8.0",
+    "viem": "^2.47.0"
+  },
+  "dependencies": {
+    "prettier": "^3.8.1"
+  }
+}

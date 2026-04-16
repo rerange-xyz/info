@@ -1,0 +1,2139 @@
+{
+  "_format": "hh3-artifact-1",
+  "contractName": "RerangeHubViews",
+  "sourceName": "contracts/libraries/_RerangeHubViews.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "InvalidConfig",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidDirection",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "vault",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "adapter",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token0",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "capital",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isSell",
+              "type": "bool"
+            },
+            {
+              "internalType": "int24",
+              "name": "targetTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "uint24",
+              "name": "triggerTicks",
+              "type": "uint24"
+            },
+            {
+              "internalType": "bytes",
+              "name": "adapterData",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "referrer",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "keepBalancesInVault",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "unwrapOut",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "closed",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint32",
+              "name": "rerangeCount",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint40",
+              "name": "createdAt",
+              "type": "uint40"
+            },
+            {
+              "internalType": "uint40",
+              "name": "lastRerangeAt",
+              "type": "uint40"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idle0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idle1",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct RerangeTypes.Order",
+          "name": "order",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "orderKey",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint16",
+          "name": "completionThresholdBps",
+          "type": "uint16"
+        }
+      ],
+      "name": "getOrderState",
+      "outputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "vault",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "adapter",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "token0",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "token1",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "capital",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isSell",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "targetTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint24",
+                  "name": "triggerTicks",
+                  "type": "uint24"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "adapterData",
+                  "type": "bytes"
+                },
+                {
+                  "internalType": "address",
+                  "name": "referrer",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "keepBalancesInVault",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "unwrapOut",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closed",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "rerangeCount",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint40",
+                  "name": "createdAt",
+                  "type": "uint40"
+                },
+                {
+                  "internalType": "uint40",
+                  "name": "lastRerangeAt",
+                  "type": "uint40"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "accruedFee0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "accruedFee1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "idle0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "idle1",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct RerangeTypes.Order",
+              "name": "order",
+              "type": "tuple"
+            },
+            {
+              "internalType": "enum RerangeTypes.OrderStatus",
+              "name": "status",
+              "type": "RerangeTypes.OrderStatus"
+            },
+            {
+              "internalType": "int24",
+              "name": "lowerTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "upperTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "uint128",
+              "name": "liquidity",
+              "type": "uint128"
+            },
+            {
+              "internalType": "uint32",
+              "name": "rerangeCount",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "progressBps",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "remainingSource",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "convertedTarget",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee1",
+              "type": "uint256"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int24",
+                  "name": "currentTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "twapTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint160",
+                  "name": "sqrtPriceX96",
+                  "type": "uint160"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "poolLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.PoolState",
+              "name": "market",
+              "type": "tuple"
+            }
+          ],
+          "internalType": "struct RerangeTypes.OrderStateView",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "vault",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "adapter",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token0",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "capital",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isSell",
+              "type": "bool"
+            },
+            {
+              "internalType": "int24",
+              "name": "targetTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "uint24",
+              "name": "triggerTicks",
+              "type": "uint24"
+            },
+            {
+              "internalType": "bytes",
+              "name": "adapterData",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "referrer",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "keepBalancesInVault",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "unwrapOut",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "closed",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint32",
+              "name": "rerangeCount",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint40",
+              "name": "createdAt",
+              "type": "uint40"
+            },
+            {
+              "internalType": "uint40",
+              "name": "lastRerangeAt",
+              "type": "uint40"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idle0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idle1",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct RerangeTypes.Order",
+          "name": "order",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "orderKey",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint16",
+          "name": "resolverShareBps",
+          "type": "uint16"
+        }
+      ],
+      "name": "previewClose",
+      "outputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "vault",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "adapter",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "token0",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "token1",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "capital",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isSell",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "targetTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint24",
+                  "name": "triggerTicks",
+                  "type": "uint24"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "adapterData",
+                  "type": "bytes"
+                },
+                {
+                  "internalType": "address",
+                  "name": "referrer",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "keepBalancesInVault",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "unwrapOut",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closed",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "rerangeCount",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint40",
+                  "name": "createdAt",
+                  "type": "uint40"
+                },
+                {
+                  "internalType": "uint40",
+                  "name": "lastRerangeAt",
+                  "type": "uint40"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "accruedFee0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "accruedFee1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "idle0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "idle1",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct RerangeTypes.Order",
+              "name": "order",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int24",
+                  "name": "currentTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "twapTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint160",
+                  "name": "sqrtPriceX96",
+                  "type": "uint160"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "poolLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.PoolState",
+              "name": "market",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "active",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "liquidity",
+                  "type": "uint128"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sourceBalance",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "targetBalance",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "pendingFee0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "pendingFee1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "lowerTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "upperTick",
+                  "type": "int24"
+                }
+              ],
+              "internalType": "struct RerangeTypes.PositionView",
+              "name": "position",
+              "type": "tuple"
+            },
+            {
+              "internalType": "uint256",
+              "name": "reward0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "reward1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sourceBalance",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "willClose",
+              "type": "bool"
+            },
+            {
+              "internalType": "int24",
+              "name": "nextLowerTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "nextUpperTick",
+              "type": "int24"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "collectFees",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "removeLiquidity",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "activateOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closeOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "expectedTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickLower",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickUpper",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "minActivateLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.ExecutionPlan",
+              "name": "removePlan",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "collectFees",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "removeLiquidity",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "activateOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closeOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "expectedTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickLower",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickUpper",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "minActivateLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.ExecutionPlan",
+              "name": "activatePlan",
+              "type": "tuple"
+            }
+          ],
+          "internalType": "struct RerangeTypes.OrderActionPreview",
+          "name": "preview",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "vault",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "vaultExists",
+          "type": "bool"
+        },
+        {
+          "internalType": "bytes",
+          "name": "adapterData",
+          "type": "bytes"
+        },
+        {
+          "components": [
+            {
+              "internalType": "int24",
+              "name": "currentTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "twapTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "uint160",
+              "name": "sqrtPriceX96",
+              "type": "uint160"
+            },
+            {
+              "internalType": "uint128",
+              "name": "poolLiquidity",
+              "type": "uint128"
+            }
+          ],
+          "internalType": "struct RerangeTypes.PoolState",
+          "name": "market",
+          "type": "tuple"
+        },
+        {
+          "internalType": "int24",
+          "name": "tickSpacing",
+          "type": "int24"
+        },
+        {
+          "internalType": "int24",
+          "name": "lowerTick",
+          "type": "int24"
+        },
+        {
+          "internalType": "int24",
+          "name": "upperTick",
+          "type": "int24"
+        },
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "collectFees",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "removeLiquidity",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "activateOrder",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "closeOrder",
+              "type": "bool"
+            },
+            {
+              "internalType": "int24",
+              "name": "expectedTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "activateTickLower",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "activateTickUpper",
+              "type": "int24"
+            },
+            {
+              "internalType": "uint256",
+              "name": "deployAmount0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "deployAmount1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minRemove0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minRemove1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minActivate0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minActivate1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint128",
+              "name": "minActivateLiquidity",
+              "type": "uint128"
+            }
+          ],
+          "internalType": "struct RerangeTypes.ExecutionPlan",
+          "name": "activationPlan",
+          "type": "tuple"
+        }
+      ],
+      "name": "previewOpen",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "vault",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "vaultExists",
+              "type": "bool"
+            },
+            {
+              "internalType": "bytes",
+              "name": "adapterData",
+              "type": "bytes"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int24",
+                  "name": "currentTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "twapTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint160",
+                  "name": "sqrtPriceX96",
+                  "type": "uint160"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "poolLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.PoolState",
+              "name": "market",
+              "type": "tuple"
+            },
+            {
+              "internalType": "int24",
+              "name": "tickSpacing",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "lowerTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "upperTick",
+              "type": "int24"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "collectFees",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "removeLiquidity",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "activateOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closeOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "expectedTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickLower",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickUpper",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "minActivateLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.ExecutionPlan",
+              "name": "activationPlan",
+              "type": "tuple"
+            }
+          ],
+          "internalType": "struct RerangeTypes.OpenPreview",
+          "name": "preview",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "vault",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "adapter",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token0",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "capital",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isSell",
+              "type": "bool"
+            },
+            {
+              "internalType": "int24",
+              "name": "targetTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "uint24",
+              "name": "triggerTicks",
+              "type": "uint24"
+            },
+            {
+              "internalType": "bytes",
+              "name": "adapterData",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "referrer",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "keepBalancesInVault",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "unwrapOut",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "closed",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint32",
+              "name": "rerangeCount",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint40",
+              "name": "createdAt",
+              "type": "uint40"
+            },
+            {
+              "internalType": "uint40",
+              "name": "lastRerangeAt",
+              "type": "uint40"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idle0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idle1",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct RerangeTypes.Order",
+          "name": "order",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "orderKey",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint16",
+          "name": "resolverShareBps",
+          "type": "uint16"
+        },
+        {
+          "internalType": "uint16",
+          "name": "completionThresholdBps",
+          "type": "uint16"
+        }
+      ],
+      "name": "previewRerange",
+      "outputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "vault",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "adapter",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "token0",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "token1",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "capital",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isSell",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "targetTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint24",
+                  "name": "triggerTicks",
+                  "type": "uint24"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "adapterData",
+                  "type": "bytes"
+                },
+                {
+                  "internalType": "address",
+                  "name": "referrer",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "keepBalancesInVault",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "unwrapOut",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closed",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "rerangeCount",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint40",
+                  "name": "createdAt",
+                  "type": "uint40"
+                },
+                {
+                  "internalType": "uint40",
+                  "name": "lastRerangeAt",
+                  "type": "uint40"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "accruedFee0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "accruedFee1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "idle0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "idle1",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct RerangeTypes.Order",
+              "name": "order",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int24",
+                  "name": "currentTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "twapTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint160",
+                  "name": "sqrtPriceX96",
+                  "type": "uint160"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "poolLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.PoolState",
+              "name": "market",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "active",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "liquidity",
+                  "type": "uint128"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sourceBalance",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "targetBalance",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "pendingFee0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "pendingFee1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "lowerTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "upperTick",
+                  "type": "int24"
+                }
+              ],
+              "internalType": "struct RerangeTypes.PositionView",
+              "name": "position",
+              "type": "tuple"
+            },
+            {
+              "internalType": "uint256",
+              "name": "reward0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "reward1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sourceBalance",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "willClose",
+              "type": "bool"
+            },
+            {
+              "internalType": "int24",
+              "name": "nextLowerTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "nextUpperTick",
+              "type": "int24"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "collectFees",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "removeLiquidity",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "activateOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closeOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "expectedTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickLower",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickUpper",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "minActivateLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.ExecutionPlan",
+              "name": "removePlan",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "collectFees",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "removeLiquidity",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "activateOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closeOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "expectedTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickLower",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickUpper",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "minActivateLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.ExecutionPlan",
+              "name": "activatePlan",
+              "type": "tuple"
+            }
+          ],
+          "internalType": "struct RerangeTypes.OrderActionPreview",
+          "name": "preview",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "vault",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "adapter",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token0",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "token1",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "capital",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isSell",
+              "type": "bool"
+            },
+            {
+              "internalType": "int24",
+              "name": "targetTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "uint24",
+              "name": "triggerTicks",
+              "type": "uint24"
+            },
+            {
+              "internalType": "bytes",
+              "name": "adapterData",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "referrer",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "keepBalancesInVault",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "unwrapOut",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "closed",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint32",
+              "name": "rerangeCount",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint40",
+              "name": "createdAt",
+              "type": "uint40"
+            },
+            {
+              "internalType": "uint40",
+              "name": "lastRerangeAt",
+              "type": "uint40"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "accruedFee1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idle0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "idle1",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct RerangeTypes.Order",
+          "name": "order",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "orderKey",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "int24",
+          "name": "targetTick",
+          "type": "int24"
+        },
+        {
+          "internalType": "uint24",
+          "name": "triggerTicks",
+          "type": "uint24"
+        },
+        {
+          "internalType": "uint16",
+          "name": "resolverShareBps",
+          "type": "uint16"
+        },
+        {
+          "internalType": "uint16",
+          "name": "completionThresholdBps",
+          "type": "uint16"
+        }
+      ],
+      "name": "previewRerange",
+      "outputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "vault",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "adapter",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "token0",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "token1",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "capital",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isSell",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "targetTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint24",
+                  "name": "triggerTicks",
+                  "type": "uint24"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "adapterData",
+                  "type": "bytes"
+                },
+                {
+                  "internalType": "address",
+                  "name": "referrer",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "keepBalancesInVault",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "unwrapOut",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closed",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "rerangeCount",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "uint40",
+                  "name": "createdAt",
+                  "type": "uint40"
+                },
+                {
+                  "internalType": "uint40",
+                  "name": "lastRerangeAt",
+                  "type": "uint40"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "accruedFee0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "accruedFee1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "idle0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "idle1",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct RerangeTypes.Order",
+              "name": "order",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int24",
+                  "name": "currentTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "twapTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint160",
+                  "name": "sqrtPriceX96",
+                  "type": "uint160"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "poolLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.PoolState",
+              "name": "market",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "active",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "liquidity",
+                  "type": "uint128"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sourceBalance",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "targetBalance",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "pendingFee0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "pendingFee1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "lowerTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "upperTick",
+                  "type": "int24"
+                }
+              ],
+              "internalType": "struct RerangeTypes.PositionView",
+              "name": "position",
+              "type": "tuple"
+            },
+            {
+              "internalType": "uint256",
+              "name": "reward0",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "reward1",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sourceBalance",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "willClose",
+              "type": "bool"
+            },
+            {
+              "internalType": "int24",
+              "name": "nextLowerTick",
+              "type": "int24"
+            },
+            {
+              "internalType": "int24",
+              "name": "nextUpperTick",
+              "type": "int24"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "collectFees",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "removeLiquidity",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "activateOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closeOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "expectedTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickLower",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickUpper",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "minActivateLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.ExecutionPlan",
+              "name": "removePlan",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "collectFees",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "removeLiquidity",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "activateOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closeOrder",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "expectedTick",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickLower",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "int24",
+                  "name": "activateTickUpper",
+                  "type": "int24"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "deployAmount1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minRemove1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate0",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "minActivate1",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint128",
+                  "name": "minActivateLiquidity",
+                  "type": "uint128"
+                }
+              ],
+              "internalType": "struct RerangeTypes.ExecutionPlan",
+              "name": "activatePlan",
+              "type": "tuple"
+            }
+          ],
+          "internalType": "struct RerangeTypes.OrderActionPreview",
+          "name": "preview",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080806040523460195761219a908161001e823930815050f35b5f80fdfe60806040526004361015610011575f80fd5b5f3560e01c80631961c73514610a9957806327e873ac146108a75780639248f8e414610422578063b5f912011461030d5763c72a895f14610050575f80fd5b610300366003190112610309576004356001600160a01b0381169081900361030957602435801515809103610309576044356001600160401b0381116103095761009e903690600401610f49565b906080366063190112610309576040516100b781610e98565b6064358060020b81036103095781526084358060020b810361030957602082015260a4356001600160a01b038116810361030957604082015260c4356001600160801b038116810361030957606082015260e435938460020b8095036103095761010435908160020b8092036103095761012435928360020b809403610309576101c036610143190112610309576040519561015287610eb3565b6101443580151581036103095787526101643580151581036103095760208801526101843580151581036103095760408801526101a43580151581036103095760608801526101c4358060020b81036103095760808801526101e4358060020b81036103095760a0880152610204358060020b81036103095760c08801526102243560e08801526102443561010088015261026435610120880152610284356101408801526102a4356101608801526102c4356101808801526102e4356001600160801b0381168103610309576101a0880152604051968795869561023687610ecf565b5f8752602087019a8b955f875260408901956060875260608a019b610259611550565b8d5260808b01985f8a5260a08c019a5f8c5260c08d019c5f8e5260e0019d61027f611706565b50525286528a52855285528552855260405197889760208952600160a01b60019003905116602089015251151560408801525160608701610300905261032087016102c991611172565b9451608087016102d8916112cf565b5160020b6101008601525160020b6101208501525160020b61014084015251610160830161030591611309565b0390f35b5f80fd5b61030561032e61031c36611132565b91929061032761176c565b5083611906565b80519192911561041457825160020b610345611706565b906001825260016020830152600160608301526080820152915b5f5f91845115158061040a575b806103fd575b6103dc575b506103828387611813565b9261038b611706565b9561039461176c565b978852602088015260408701526060860152608085015260a0840152600160c08401525f60e08401525f610100840152610120830152610140820152604051918291826113b5565b90506103f6915060a0860151151583865160020b91611b20565b9087610377565b5061ffff81161515610372565b508351151561036c565b61041c611706565b9161035f565b60c0366003190112610309576004356001600160401b0381116103095761044d903690600401610fb0565b6044358060020b8103610309576064359062ffffff82168203610309576084359261ffff8416918285036103095760a4359261ffff841684036103095761049261176c565b5061049f60243584611906565b94909160c0850193845160020b9660e0870194855162ffffff16976020810195600160a01b60019003875116996040830190600160a01b60019003825116606085019e8f600160a01b600190039051169d61010087019e8f51906040519485928392631692c68360e11b84526004840192610519936115f8565b03815a93602094fa908115610846578f925f92610869575b5060a0870199848b511515948a5160020b61054b96611a08565b9d9060020b9d8e8d5262ffffff169d8e8c52149c8d159d61085e575b505061057161176c565b5084511561085157610586845160020b611afb565b9a6105918685611813565b98600160a01b6001900390511691600160a01b600190039051169d600160a01b600190039051169051906040519e8f928392631692c68360e11b845260048401926105db936115f8565b03815a93602094fa9b8c15610846575f9c6107e4575b50906103059c8c9b9a999897969594939261064d61062a6106c69f8c8c62ffffff8b511515925160020b91511690895160020b92611d4d565b9a90809c8c9262ffffff8b511515925160020b91511690895160020b928b611e5b565b9b8c1590816107dc575b50806107d2575b806107bf575b806107ac575b6107a3575b9b8b9c8c999a9b9c99610789575b50508b15610779575b5f985f9a610692611706565b9d8a159081610771575b5061070a575b50505f945f968c51151590816106ff575b816106f5575b506106d2575b5050611b92565b604051918291826113b5565b909194506106eb92955051151583865160020b91611b20565b9390928d806106bf565b905015155f6106b9565b8651151591506106b3565b995099509a5087898551151590845160020b92610725611706565b9360016040860152608085015260020b60a084015260020b60c0830152805f1461076b57875b60e083015215610765575f5b6101008201529a8e806106a2565b86610757565b5f61074b565b90505f61069c565b9950610783611706565b99610686565b61079b92995088855160020b85611be7565b968e8061067d565b60019b5061066f565b5060e085015160020b8960020b1461066a565b5060c085015160020b8a60020b14610664565b508451151561065e565b90505f610657565b9a999897969594939291909b5060208b3d60201161083e575b8161080a60209383610f07565b81010312610309576103059c6106c69c61064d61082961062a9e611574565b9e50509192939495969798999a9b509c6105f1565b3d91506107fd565b6040513d5f823e3d90fd5b610859611706565b610586565b14159b508e80610567565b925090506020823d60201161089f575b8161088660209383610f07565b81010312610309576108988f92611574565b905f610531565b3d9150610879565b6080366003190112610309576004356001600160401b038111610309576108d2903690600401610fb0565b60443561ffff8116808203610309576064359061ffff821682036103095761097d926108fc61176c565b5061090960243586611906565b90959061091461176c565b50805115610a8c57610929875160020b611afb565b936109348284611813565b60208481015160408087015160608801516101008901519251631692c68360e11b81529c9597958d946001600160a01b03908116948694859491929182169116600485016115f8565b03915afa978815610846575f98610a3b575b5090610305986106c69897969594939260a0850191825115159560c08101976109f76109d48d8b5160020b9a60e086019b62ffffff8d511690885160020b928a611c60565b9990809b8b9262ffffff8a511515925160020b91511690885160020b928a611e5b565b9a8b1580610a34575b806107d257806107bf57806107ac576107a3579b8b9c8c999a9b9c996107895750508b15610779575f985f9a610692611706565b505f610a00565b97509594939291906020883d602011610a84575b81610a5c60209383610f07565b810103126103095761030598610a746106c699611574565b985098969091929394959661098f565b3d9150610a4f565b610a94611706565b610929565b610aa236611132565b90604051610aaf81610e68565b610ab76114bf565b81525f60208201525f60408201525f60608201525f60808201525f60a08201525f60c08201525f60e08201525f6101008201525f6101208201525f610140820152610160610b03611550565b910152602083018051604080860180516060880180516101008a0180519551632d81396b60e11b81529098909794969095929360809389936001600160a01b039384169385938493610b5f9390929081169116600485016115f8565b03915afa93841561084657610bb2955f95610e32575b508251905191518751604051631692c68360e11b81529760209489946001600160a01b0390811694869485949390929182169116600485016115f8565b03915afa938415610846575f94610dea575b505186519451604051634626a76560e11b815294956101009386936001600160a01b039081169385938493610bff93909116600485016116a6565b03915afa918215610846575f92610db9575b50610c4e610c1f8387611813565b93610c41606085015160a089015115155f14610dad57610260890151906117f2565b9585845160020b8961183f565b9260c083015160020b926001600160801b03602060e083015160020b920151169563ffffffff6101a08901511692610c8a8160808b01516118b7565b6102008a0151936102208b0151956040519b610ca58d610e68565b8c5260208c01996004811015610d99576102009c610d24918c52604081019a8b5260608101938452608081019c8d5260a0810192835260c0810194855260e081019586526101008101968752610120810197885261014081019889526101608101998a526040519d8e916020835251916101e060208201520190611196565b9951916004831015610d99578c9b8c60806001600160801b03936103059d63ffffffff9760408501525160020b60608401525160020b910152511660a08c0152511660c08a01525160e089015251610100880152516101208701525161014086015251610160850152516101808401906112cf565b634e487b7160e01b5f52602160045260245ffd5b610240890151906117f2565b610ddc9192506101003d8111610de3575b610dd48183610f07565b810190611621565b9085610c11565b503d610dca565b919350936020823d602011610e2a575b81610e0760209383610f07565b8101031261030957610bff93610e1f61010093611574565b945091949094610bc4565b3d9150610dfa565b602092919550610e599060803d608011610e61575b610e518183610f07565b810190611596565b949091610b75565b503d610e47565b61018081019081106001600160401b03821117610e8457604052565b634e487b7160e01b5f52604160045260245ffd5b608081019081106001600160401b03821117610e8457604052565b6101c081019081106001600160401b03821117610e8457604052565b61010081019081106001600160401b03821117610e8457604052565b61028081019081106001600160401b03821117610e8457604052565b90601f801991011681019081106001600160401b03821117610e8457604052565b35906001600160a01b038216820361030957565b3590811515820361030957565b81601f82011215610309578035906001600160401b038211610e845760405192610f7d601f8401601f191660200185610f07565b8284526020838301011161030957815f926020809301838601378301015290565b359064ffffffffff8216820361030957565b919091610280818403126103095760405190610fcb82610eeb565b8193610fd682610f28565b8352610fe460208301610f28565b6020840152610ff560408301610f28565b604084015261100660608301610f28565b60608401526080820135608084015261102160a08301610f3c565b60a084015260c08201358060020b81036103095760c084015260e082013562ffffff811681036103095760e0840152610100820135906001600160401b03821161030957611070918301610f49565b6101008301526110836101208201610f28565b6101208301526110966101408201610f3c565b6101408301526110a96101608201610f3c565b6101608301526110bc6101808201610f3c565b6101808301526101a081013563ffffffff81168103610309576102609182916101a08501526110ee6101c08201610f9e565b6101c08501526111016101e08201610f9e565b6101e08501526102008101356102008501526102208101356102208501526102408101356102408501520135910152565b606060031982011261030957600435906001600160401b0382116103095761115c91600401610fb0565b906024359060443561ffff811681036103095790565b805180835260209291819084018484015e5f828201840152601f01601f1916010190565b9060018060a01b03825116815260018060a01b03602083015116602082015260018060a01b03604083015116604082015260018060a01b0360608301511660608201526080820151608082015260a0820151151560a082015260c082015160020b60c082015262ffffff60e08301511660e08201526102608061122c610100850151610280610100860152610280850190611172565b9360018060a01b036101208201511661012085015261014081015115156101408501526101608101511515610160850152610180810151151561018085015263ffffffff6101a0820151166101a085015264ffffffffff6101c0820151166101c085015264ffffffffff6101e0820151166101e0850152610200810151610200850152610220810151610220850152610240810151610240850152015191015290565b6001600160801b0360608092805160020b8552602081015160020b602086015260018060a01b036040820151166040860152015116910152565b6001600160801b036101a08092805115158552602081015115156020860152604081015115156040860152606081015115156060860152608081015160020b608086015260a081015160020b60a086015260c081015160020b60c086015260e081015160e0860152610100810151610100860152610120810151610120860152610140810151610140860152610160810151610160860152610180810151610180860152015116910152565b6114bc90602081526104406101406113db85516105e06020860152610600850190611196565b946113ee602082015160408601906112cf565b60e060408201518051151560c08701526001600160801b03602082015116828701526040810151610100870152606081015161012087015260808101518487015260a081015161016087015260c081015160020b610180870152015160020b6101a085015260608101516101c085015260808101516101e085015260a081015161020085015260c0810151151561022085015260e081015160020b61024085015261010081015160020b6102608501526114b2610120820151610280860190611309565b0151910190611309565b90565b604051906114cc82610eeb565b5f610260838281528260208201528260408201528260608201528260808201528260a08201528260c08201528260e0820152606061010082015282610120820152826101408201528261016082015282610180820152826101a0820152826101c0820152826101e08201528261020082015282610220820152826102408201520152565b6040519061155d82610e98565b5f6060838281528260208201528260408201520152565b51908160020b820361030957565b51906001600160801b038216820361030957565b9081608091031261030957604051906115ae82610e98565b6115b781611574565b82526115c560208201611574565b602083015260408101516001600160a01b03811681036103095760408301526115f090606001611582565b606082015290565b6001600160a01b039182168152911660208201526060604082018190526114bc92910190611172565b9081610100910312610309576040519061163a82610ecf565b805180151581036103095761169e9160e091845261165a60208201611582565b602085015260408101516040850152606081015160608501526080810151608085015260a081015160a085015261169360c08201611574565b60c085015201611574565b60e082015290565b6114bc939260609260018060a01b0316825260208201528160408201520190611172565b604051906116d782610ecf565b5f60e0838281528260208201528260408201528260608201528260808201528260a08201528260c08201520152565b6040519061171382610eb3565b5f6101a0838281528260208201528260408201528260608201528260808201528260a08201528260c08201528260e082015282610100820152826101208201528261014082015282610160820152826101808201520152565b6040519061016082018281106001600160401b03821117610e8457604052816117936114bf565b815261179d611550565b60208201526117aa6116ca565b60408201525f60608201525f60808201525f60a08201525f60c08201525f60e08201525f6101008201526117dc611706565b6101208201526101406117ed611706565b910152565b919082018092116117ff57565b634e487b7160e01b5f52601160045260245ffd5b60406114bc9201519060a081015115155f14611834576102400151906117f2565b6102600151906117f2565b939291906101808501516118645761185694611be7565b61185f57600190565b600290565b5050505050600390565b9061271082029180830461271014901517156117ff57565b818102929181159184041417156117ff57565b81156118a3570490565b634e487b7160e01b5f52601260045260245ffd5b90811561190057808211156118f2578103908082116117ff576118dc6118e19261186e565b611899565b6127108111156114bc575061271090565b506118e1906118dc5f61186e565b50505f90565b9190611910611550565b506119196116ca565b506020830180516040808601516060870151610100880180519351632d81396b60e11b815295989094909360809387936001600160a01b03938416938593849361196d9391929182169116600485016115f8565b03915afa938415610846576119bb94610100945f916119e9575b50965191519251604051634626a76560e11b81529586946001600160a01b03948516948694859492909116600485016116a6565b03915afa908115610846575f916119d0575090565b6114bc91506101003d8111610de357610dd48183610f07565b611a02915060803d608011610e6157610e518183610f07565b5f611987565b96959493919294839580988460020b918660020b83149062ffffff89169062ffffff81168214988380611af4575b611ae457505015611ad55715611a5c575b505050505015611a5657509190565b90925090565b909192939496505f14611acb578260020b125b15611a9557825f8260020b139283611aa4575b50505015611a9557915f80808080611a47565b63034b254960e21b5f5260045ffd5b62ffffff929350611ab98392611abf92612061565b9361208a565b169116115f8281611a82565b8260020b13611a6f565b6306b7c75960e31b5f5260045ffd5b9c509a9950505050505050505050565b5089611a36565b90611b04611706565b9160018352600160208401525f606084015260020b6080830152565b909391925f935f908651158015611b86575b611b7a57611b519060c088015160020b60e089015160020b9086611ef8565b9215611b67575060a06114bc939495015161201e565b93506080611b779395015161201e565b91565b505f9550859450505050565b5061ffff831615611b32565b9a99989796959493929190611ba561176c565b9b8c5260208c015260408b015260608a0152608089015260a0880152151560c087015260020b60e086015260020b610100850152610120840152610140830152565b91909260a0830151151592611c0660c082019486865160020b91612041565b611c55578215611c55576127109161ffff6080611c27930151911690611886565b041015611c4d57611c45611ab962ffffff9384935160020b90612061565b169116111590565b505050600190565b505050505050600190565b9594929091611c6f9492611d4d565b809391939084835115611cd757505060c082015160020b93848160020b125f14611cd15750835b60e08593015160020b91828160020b135f14611ccb575081945b8560020b9060020b1215611cc45750509190565b9350919050565b94611cb0565b93611c96565b945092915050565b9190915f83820193841291129080158216911516176117ff57565b81810392915f1380158285131691841216176117ff57565b9060020b9060020b0190627fffff198212627fffff8313176117ff57565b600291820b910b0390627fffff198212627fffff8313176117ff57565b9391949290945f8360020b1315611ad5578415611e445762ffffff611d7691168660020b611cfa565b627fffff1981128015611e38575b611ad55760020b8415611e0757611da9918391808260020b135f14611e0057506120ee565b93611db482826120ee565b935b8460020b8660020b1215611dc957505050565b9193509193505f14611de957611de282611b77926120ee565b9182611d30565b611df9826114bc929493946120ad565b9283611d12565b90506120ee565b949082611e2b91611e1882856120ad565b97808260020b125f14611e3157506120ad565b93611db6565b90506120ad565b50627fffff8113611d84565b62ffffff611e5691168660020b611cdf565b611d76565b9594939290919283875115918215611ee6575b5050611c555762ffffff169015611ec957611e8b9160020b611cfa565b8160020b12611ec2575b60c083015160020b9060020b1491821592611eaf57505090565b60e0919250015160020b9060020b141590565b5050505f90565b611ed59160020b611cdf565b8260020b1315611e95575050505f90565b611ef1925084612041565b835f611e6e565b929190928260020b8460020b811390811591612010575b506120065762ffffff611f228584612061565b16918215611ffb5762ffffff611f6c611f7b9587866118dc965f14611fdd57611f5d611f65916118dc87611f57819688611d30565b1661186e565b995b83611d30565b1693611d30565b1680821015611fd6575061186e565b9081612710039161271083116117ff57611b58820291808304611b5814901517156117ff57610bb88302928304610bb814906127101417156117ff5761271091611fc4916117f2565b046127108111156114bc575061271090565b905061186e565b849150611ff5611f65916118dc84611f57878b611d30565b99611f5f565b505050505061271090565b5050505061271090565b90508260020b13155f611f0f565b9190918015611ec25761203761203d926127109461212f565b90611886565b0490565b909190156120555760020b9060020b121590565b60020b9060020b131590565b600282810b9082900b12612081579061207991611d30565b62ffffff1690565b61207991611d30565b5f8160020b125f1461207957505f90565b9060020b9081156118a35760020b0790565b906120b8818361209b565b908160020b156120e9575f8360020b126120d657506114bc91611d30565b906120e4906114bc93611d30565b611d30565b505090565b6120f8828261209b565b908160020b15612129575f8160020b1261211f576114bc929161211a91611d30565b611d12565b6114bc9250611d30565b91505090565b61ffff16908115801561215c575b611900576127108110156121585761203d9061271092611886565b5090565b50801561213d56fea2646970667358221220fdc51878a9342aaadd3388ad79096537d1e94f33f53737f87c8a97f1c977ecb964736f6c634300081c0033",
+  "deployedBytecode": "0x60806040526004361015610011575f80fd5b5f3560e01c80631961c73514610a9957806327e873ac146108a75780639248f8e414610422578063b5f912011461030d5763c72a895f14610050575f80fd5b610300366003190112610309576004356001600160a01b0381169081900361030957602435801515809103610309576044356001600160401b0381116103095761009e903690600401610f49565b906080366063190112610309576040516100b781610e98565b6064358060020b81036103095781526084358060020b810361030957602082015260a4356001600160a01b038116810361030957604082015260c4356001600160801b038116810361030957606082015260e435938460020b8095036103095761010435908160020b8092036103095761012435928360020b809403610309576101c036610143190112610309576040519561015287610eb3565b6101443580151581036103095787526101643580151581036103095760208801526101843580151581036103095760408801526101a43580151581036103095760608801526101c4358060020b81036103095760808801526101e4358060020b81036103095760a0880152610204358060020b81036103095760c08801526102243560e08801526102443561010088015261026435610120880152610284356101408801526102a4356101608801526102c4356101808801526102e4356001600160801b0381168103610309576101a0880152604051968795869561023687610ecf565b5f8752602087019a8b955f875260408901956060875260608a019b610259611550565b8d5260808b01985f8a5260a08c019a5f8c5260c08d019c5f8e5260e0019d61027f611706565b50525286528a52855285528552855260405197889760208952600160a01b60019003905116602089015251151560408801525160608701610300905261032087016102c991611172565b9451608087016102d8916112cf565b5160020b6101008601525160020b6101208501525160020b61014084015251610160830161030591611309565b0390f35b5f80fd5b61030561032e61031c36611132565b91929061032761176c565b5083611906565b80519192911561041457825160020b610345611706565b906001825260016020830152600160608301526080820152915b5f5f91845115158061040a575b806103fd575b6103dc575b506103828387611813565b9261038b611706565b9561039461176c565b978852602088015260408701526060860152608085015260a0840152600160c08401525f60e08401525f610100840152610120830152610140820152604051918291826113b5565b90506103f6915060a0860151151583865160020b91611b20565b9087610377565b5061ffff81161515610372565b508351151561036c565b61041c611706565b9161035f565b60c0366003190112610309576004356001600160401b0381116103095761044d903690600401610fb0565b6044358060020b8103610309576064359062ffffff82168203610309576084359261ffff8416918285036103095760a4359261ffff841684036103095761049261176c565b5061049f60243584611906565b94909160c0850193845160020b9660e0870194855162ffffff16976020810195600160a01b60019003875116996040830190600160a01b60019003825116606085019e8f600160a01b600190039051169d61010087019e8f51906040519485928392631692c68360e11b84526004840192610519936115f8565b03815a93602094fa908115610846578f925f92610869575b5060a0870199848b511515948a5160020b61054b96611a08565b9d9060020b9d8e8d5262ffffff169d8e8c52149c8d159d61085e575b505061057161176c565b5084511561085157610586845160020b611afb565b9a6105918685611813565b98600160a01b6001900390511691600160a01b600190039051169d600160a01b600190039051169051906040519e8f928392631692c68360e11b845260048401926105db936115f8565b03815a93602094fa9b8c15610846575f9c6107e4575b50906103059c8c9b9a999897969594939261064d61062a6106c69f8c8c62ffffff8b511515925160020b91511690895160020b92611d4d565b9a90809c8c9262ffffff8b511515925160020b91511690895160020b928b611e5b565b9b8c1590816107dc575b50806107d2575b806107bf575b806107ac575b6107a3575b9b8b9c8c999a9b9c99610789575b50508b15610779575b5f985f9a610692611706565b9d8a159081610771575b5061070a575b50505f945f968c51151590816106ff575b816106f5575b506106d2575b5050611b92565b604051918291826113b5565b909194506106eb92955051151583865160020b91611b20565b9390928d806106bf565b905015155f6106b9565b8651151591506106b3565b995099509a5087898551151590845160020b92610725611706565b9360016040860152608085015260020b60a084015260020b60c0830152805f1461076b57875b60e083015215610765575f5b6101008201529a8e806106a2565b86610757565b5f61074b565b90505f61069c565b9950610783611706565b99610686565b61079b92995088855160020b85611be7565b968e8061067d565b60019b5061066f565b5060e085015160020b8960020b1461066a565b5060c085015160020b8a60020b14610664565b508451151561065e565b90505f610657565b9a999897969594939291909b5060208b3d60201161083e575b8161080a60209383610f07565b81010312610309576103059c6106c69c61064d61082961062a9e611574565b9e50509192939495969798999a9b509c6105f1565b3d91506107fd565b6040513d5f823e3d90fd5b610859611706565b610586565b14159b508e80610567565b925090506020823d60201161089f575b8161088660209383610f07565b81010312610309576108988f92611574565b905f610531565b3d9150610879565b6080366003190112610309576004356001600160401b038111610309576108d2903690600401610fb0565b60443561ffff8116808203610309576064359061ffff821682036103095761097d926108fc61176c565b5061090960243586611906565b90959061091461176c565b50805115610a8c57610929875160020b611afb565b936109348284611813565b60208481015160408087015160608801516101008901519251631692c68360e11b81529c9597958d946001600160a01b03908116948694859491929182169116600485016115f8565b03915afa978815610846575f98610a3b575b5090610305986106c69897969594939260a0850191825115159560c08101976109f76109d48d8b5160020b9a60e086019b62ffffff8d511690885160020b928a611c60565b9990809b8b9262ffffff8a511515925160020b91511690885160020b928a611e5b565b9a8b1580610a34575b806107d257806107bf57806107ac576107a3579b8b9c8c999a9b9c996107895750508b15610779575f985f9a610692611706565b505f610a00565b97509594939291906020883d602011610a84575b81610a5c60209383610f07565b810103126103095761030598610a746106c699611574565b985098969091929394959661098f565b3d9150610a4f565b610a94611706565b610929565b610aa236611132565b90604051610aaf81610e68565b610ab76114bf565b81525f60208201525f60408201525f60608201525f60808201525f60a08201525f60c08201525f60e08201525f6101008201525f6101208201525f610140820152610160610b03611550565b910152602083018051604080860180516060880180516101008a0180519551632d81396b60e11b81529098909794969095929360809389936001600160a01b039384169385938493610b5f9390929081169116600485016115f8565b03915afa93841561084657610bb2955f95610e32575b508251905191518751604051631692c68360e11b81529760209489946001600160a01b0390811694869485949390929182169116600485016115f8565b03915afa938415610846575f94610dea575b505186519451604051634626a76560e11b815294956101009386936001600160a01b039081169385938493610bff93909116600485016116a6565b03915afa918215610846575f92610db9575b50610c4e610c1f8387611813565b93610c41606085015160a089015115155f14610dad57610260890151906117f2565b9585845160020b8961183f565b9260c083015160020b926001600160801b03602060e083015160020b920151169563ffffffff6101a08901511692610c8a8160808b01516118b7565b6102008a0151936102208b0151956040519b610ca58d610e68565b8c5260208c01996004811015610d99576102009c610d24918c52604081019a8b5260608101938452608081019c8d5260a0810192835260c0810194855260e081019586526101008101968752610120810197885261014081019889526101608101998a526040519d8e916020835251916101e060208201520190611196565b9951916004831015610d99578c9b8c60806001600160801b03936103059d63ffffffff9760408501525160020b60608401525160020b910152511660a08c0152511660c08a01525160e089015251610100880152516101208701525161014086015251610160850152516101808401906112cf565b634e487b7160e01b5f52602160045260245ffd5b610240890151906117f2565b610ddc9192506101003d8111610de3575b610dd48183610f07565b810190611621565b9085610c11565b503d610dca565b919350936020823d602011610e2a575b81610e0760209383610f07565b8101031261030957610bff93610e1f61010093611574565b945091949094610bc4565b3d9150610dfa565b602092919550610e599060803d608011610e61575b610e518183610f07565b810190611596565b949091610b75565b503d610e47565b61018081019081106001600160401b03821117610e8457604052565b634e487b7160e01b5f52604160045260245ffd5b608081019081106001600160401b03821117610e8457604052565b6101c081019081106001600160401b03821117610e8457604052565b61010081019081106001600160401b03821117610e8457604052565b61028081019081106001600160401b03821117610e8457604052565b90601f801991011681019081106001600160401b03821117610e8457604052565b35906001600160a01b038216820361030957565b3590811515820361030957565b81601f82011215610309578035906001600160401b038211610e845760405192610f7d601f8401601f191660200185610f07565b8284526020838301011161030957815f926020809301838601378301015290565b359064ffffffffff8216820361030957565b919091610280818403126103095760405190610fcb82610eeb565b8193610fd682610f28565b8352610fe460208301610f28565b6020840152610ff560408301610f28565b604084015261100660608301610f28565b60608401526080820135608084015261102160a08301610f3c565b60a084015260c08201358060020b81036103095760c084015260e082013562ffffff811681036103095760e0840152610100820135906001600160401b03821161030957611070918301610f49565b6101008301526110836101208201610f28565b6101208301526110966101408201610f3c565b6101408301526110a96101608201610f3c565b6101608301526110bc6101808201610f3c565b6101808301526101a081013563ffffffff81168103610309576102609182916101a08501526110ee6101c08201610f9e565b6101c08501526111016101e08201610f9e565b6101e08501526102008101356102008501526102208101356102208501526102408101356102408501520135910152565b606060031982011261030957600435906001600160401b0382116103095761115c91600401610fb0565b906024359060443561ffff811681036103095790565b805180835260209291819084018484015e5f828201840152601f01601f1916010190565b9060018060a01b03825116815260018060a01b03602083015116602082015260018060a01b03604083015116604082015260018060a01b0360608301511660608201526080820151608082015260a0820151151560a082015260c082015160020b60c082015262ffffff60e08301511660e08201526102608061122c610100850151610280610100860152610280850190611172565b9360018060a01b036101208201511661012085015261014081015115156101408501526101608101511515610160850152610180810151151561018085015263ffffffff6101a0820151166101a085015264ffffffffff6101c0820151166101c085015264ffffffffff6101e0820151166101e0850152610200810151610200850152610220810151610220850152610240810151610240850152015191015290565b6001600160801b0360608092805160020b8552602081015160020b602086015260018060a01b036040820151166040860152015116910152565b6001600160801b036101a08092805115158552602081015115156020860152604081015115156040860152606081015115156060860152608081015160020b608086015260a081015160020b60a086015260c081015160020b60c086015260e081015160e0860152610100810151610100860152610120810151610120860152610140810151610140860152610160810151610160860152610180810151610180860152015116910152565b6114bc90602081526104406101406113db85516105e06020860152610600850190611196565b946113ee602082015160408601906112cf565b60e060408201518051151560c08701526001600160801b03602082015116828701526040810151610100870152606081015161012087015260808101518487015260a081015161016087015260c081015160020b610180870152015160020b6101a085015260608101516101c085015260808101516101e085015260a081015161020085015260c0810151151561022085015260e081015160020b61024085015261010081015160020b6102608501526114b2610120820151610280860190611309565b0151910190611309565b90565b604051906114cc82610eeb565b5f610260838281528260208201528260408201528260608201528260808201528260a08201528260c08201528260e0820152606061010082015282610120820152826101408201528261016082015282610180820152826101a0820152826101c0820152826101e08201528261020082015282610220820152826102408201520152565b6040519061155d82610e98565b5f6060838281528260208201528260408201520152565b51908160020b820361030957565b51906001600160801b038216820361030957565b9081608091031261030957604051906115ae82610e98565b6115b781611574565b82526115c560208201611574565b602083015260408101516001600160a01b03811681036103095760408301526115f090606001611582565b606082015290565b6001600160a01b039182168152911660208201526060604082018190526114bc92910190611172565b9081610100910312610309576040519061163a82610ecf565b805180151581036103095761169e9160e091845261165a60208201611582565b602085015260408101516040850152606081015160608501526080810151608085015260a081015160a085015261169360c08201611574565b60c085015201611574565b60e082015290565b6114bc939260609260018060a01b0316825260208201528160408201520190611172565b604051906116d782610ecf565b5f60e0838281528260208201528260408201528260608201528260808201528260a08201528260c08201520152565b6040519061171382610eb3565b5f6101a0838281528260208201528260408201528260608201528260808201528260a08201528260c08201528260e082015282610100820152826101208201528261014082015282610160820152826101808201520152565b6040519061016082018281106001600160401b03821117610e8457604052816117936114bf565b815261179d611550565b60208201526117aa6116ca565b60408201525f60608201525f60808201525f60a08201525f60c08201525f60e08201525f6101008201526117dc611706565b6101208201526101406117ed611706565b910152565b919082018092116117ff57565b634e487b7160e01b5f52601160045260245ffd5b60406114bc9201519060a081015115155f14611834576102400151906117f2565b6102600151906117f2565b939291906101808501516118645761185694611be7565b61185f57600190565b600290565b5050505050600390565b9061271082029180830461271014901517156117ff57565b818102929181159184041417156117ff57565b81156118a3570490565b634e487b7160e01b5f52601260045260245ffd5b90811561190057808211156118f2578103908082116117ff576118dc6118e19261186e565b611899565b6127108111156114bc575061271090565b506118e1906118dc5f61186e565b50505f90565b9190611910611550565b506119196116ca565b506020830180516040808601516060870151610100880180519351632d81396b60e11b815295989094909360809387936001600160a01b03938416938593849361196d9391929182169116600485016115f8565b03915afa938415610846576119bb94610100945f916119e9575b50965191519251604051634626a76560e11b81529586946001600160a01b03948516948694859492909116600485016116a6565b03915afa908115610846575f916119d0575090565b6114bc91506101003d8111610de357610dd48183610f07565b611a02915060803d608011610e6157610e518183610f07565b5f611987565b96959493919294839580988460020b918660020b83149062ffffff89169062ffffff81168214988380611af4575b611ae457505015611ad55715611a5c575b505050505015611a5657509190565b90925090565b909192939496505f14611acb578260020b125b15611a9557825f8260020b139283611aa4575b50505015611a9557915f80808080611a47565b63034b254960e21b5f5260045ffd5b62ffffff929350611ab98392611abf92612061565b9361208a565b169116115f8281611a82565b8260020b13611a6f565b6306b7c75960e31b5f5260045ffd5b9c509a9950505050505050505050565b5089611a36565b90611b04611706565b9160018352600160208401525f606084015260020b6080830152565b909391925f935f908651158015611b86575b611b7a57611b519060c088015160020b60e089015160020b9086611ef8565b9215611b67575060a06114bc939495015161201e565b93506080611b779395015161201e565b91565b505f9550859450505050565b5061ffff831615611b32565b9a99989796959493929190611ba561176c565b9b8c5260208c015260408b015260608a0152608089015260a0880152151560c087015260020b60e086015260020b610100850152610120840152610140830152565b91909260a0830151151592611c0660c082019486865160020b91612041565b611c55578215611c55576127109161ffff6080611c27930151911690611886565b041015611c4d57611c45611ab962ffffff9384935160020b90612061565b169116111590565b505050600190565b505050505050600190565b9594929091611c6f9492611d4d565b809391939084835115611cd757505060c082015160020b93848160020b125f14611cd15750835b60e08593015160020b91828160020b135f14611ccb575081945b8560020b9060020b1215611cc45750509190565b9350919050565b94611cb0565b93611c96565b945092915050565b9190915f83820193841291129080158216911516176117ff57565b81810392915f1380158285131691841216176117ff57565b9060020b9060020b0190627fffff198212627fffff8313176117ff57565b600291820b910b0390627fffff198212627fffff8313176117ff57565b9391949290945f8360020b1315611ad5578415611e445762ffffff611d7691168660020b611cfa565b627fffff1981128015611e38575b611ad55760020b8415611e0757611da9918391808260020b135f14611e0057506120ee565b93611db482826120ee565b935b8460020b8660020b1215611dc957505050565b9193509193505f14611de957611de282611b77926120ee565b9182611d30565b611df9826114bc929493946120ad565b9283611d12565b90506120ee565b949082611e2b91611e1882856120ad565b97808260020b125f14611e3157506120ad565b93611db6565b90506120ad565b50627fffff8113611d84565b62ffffff611e5691168660020b611cdf565b611d76565b9594939290919283875115918215611ee6575b5050611c555762ffffff169015611ec957611e8b9160020b611cfa565b8160020b12611ec2575b60c083015160020b9060020b1491821592611eaf57505090565b60e0919250015160020b9060020b141590565b5050505f90565b611ed59160020b611cdf565b8260020b1315611e95575050505f90565b611ef1925084612041565b835f611e6e565b929190928260020b8460020b811390811591612010575b506120065762ffffff611f228584612061565b16918215611ffb5762ffffff611f6c611f7b9587866118dc965f14611fdd57611f5d611f65916118dc87611f57819688611d30565b1661186e565b995b83611d30565b1693611d30565b1680821015611fd6575061186e565b9081612710039161271083116117ff57611b58820291808304611b5814901517156117ff57610bb88302928304610bb814906127101417156117ff5761271091611fc4916117f2565b046127108111156114bc575061271090565b905061186e565b849150611ff5611f65916118dc84611f57878b611d30565b99611f5f565b505050505061271090565b5050505061271090565b90508260020b13155f611f0f565b9190918015611ec25761203761203d926127109461212f565b90611886565b0490565b909190156120555760020b9060020b121590565b60020b9060020b131590565b600282810b9082900b12612081579061207991611d30565b62ffffff1690565b61207991611d30565b5f8160020b125f1461207957505f90565b9060020b9081156118a35760020b0790565b906120b8818361209b565b908160020b156120e9575f8360020b126120d657506114bc91611d30565b906120e4906114bc93611d30565b611d30565b505090565b6120f8828261209b565b908160020b15612129575f8160020b1261211f576114bc929161211a91611d30565b611d12565b6114bc9250611d30565b91505090565b61ffff16908115801561215c575b611900576127108110156121585761203d9061271092611886565b5090565b50801561213d56fea2646970667358221220fdc51878a9342aaadd3388ad79096537d1e94f33f53737f87c8a97f1c977ecb964736f6c634300081c0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "immutableReferences": {},
+  "inputSourceName": "project/contracts/libraries/_RerangeHubViews.sol",
+  "buildInfoId": "solc-0_8_28-98db12bf40c3b37b4423ba6b7b24cb76e04ab44e"
+}

@@ -1,0 +1,27 @@
+{
+  "chainId": 1,
+  "chainKey": "ethereum",
+  "network": "ethereum",
+  "deployer": "0xceb9d7cbfb6252c59ae6c3582bdcb5b7a2e6c29e",
+  "owner": "0xfE17AFdDA83C669D9131B3fB201FB828Ccd9663a",
+  "create2Salt": "0x03d0d91364c3d589a574b0e20959c2a0bf8bdb724d5a0ab7c5257e7cbc4b29f8",
+  "create2GuardedSalt": "0x422c74428de23c7deeaf540599376a1d193445d52b2bd385c6f4c535b491d4b1",
+  "permit2": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+  "treasury": "0xfE17AFdDA83C669D9131B3fB201FB828Ccd9663a",
+  "weth": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+  "v3PositionManager": "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
+  "v4PositionManager": "0xbd216513d74c8cf14cf4747e6aaa6420ff64ee9e",
+  "v4StateView": "0x7ffe42c4a5deea5b0fec41c94c136cf115597227",
+  "resolverShareBps": 5000,
+  "referrerShareBps": 1000,
+  "rerangeCooldown": 300,
+  "completionThresholdBps": 8,
+  "paused": false,
+  "contracts": {
+    "uniswapV3Adapter": "0x856feb0c640709d654b45fc70758c3c4a3d7cea0",
+    "uniswapV4Adapter": "0x122a3370ff12625bef260145d9eb69a66bcc6a09",
+    "rerangeHubEngine": "0x42fD58983Ff351b73e4b6d7447324F578dcae98A",
+    "rerangeHubViews": "0xbB33656af5704140CC276E2aE44208D88d3633a1",
+    "rerangeHub": "0x8880b95E1a056d537FA7469D1a26C3875e85f0e7"
+  }
+}

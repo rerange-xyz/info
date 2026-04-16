@@ -1,0 +1,19 @@
+{
+  "_format": "hh3-artifact-1",
+  "contractName": "RerangeHubOrders",
+  "sourceName": "contracts/libraries/RerangeHubOrders.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "UnknownOrder",
+      "type": "error"
+    }
+  ],
+  "bytecode": "0x6080806040523460175760399081601c823930815050f35b5f80fdfe5f80fdfea264697066735822122090fe1a5475edfed7e178525a230b565fa22f93aaaee06bd81e7a0136003872e764736f6c634300081c0033",
+  "deployedBytecode": "0x5f80fdfea264697066735822122090fe1a5475edfed7e178525a230b565fa22f93aaaee06bd81e7a0136003872e764736f6c634300081c0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "immutableReferences": {},
+  "inputSourceName": "project/contracts/libraries/RerangeHubOrders.sol",
+  "buildInfoId": "solc-0_8_28-98db12bf40c3b37b4423ba6b7b24cb76e04ab44e"
+}

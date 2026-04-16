@@ -1,0 +1,19 @@
+{
+  "_format": "hh3-artifact-1",
+  "contractName": "TickMath",
+  "sourceName": "contracts/libraries/uniswap/v3/TickMath.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "InvalidTick",
+      "type": "error"
+    }
+  ],
+  "bytecode": "0x6080806040523460175760399081601c823930815050f35b5f80fdfe5f80fdfea2646970667358221220191aa4756aa11b40ccf5d9ed38d21f19337544c8b4eb558dd7c6f7f1500fe64264736f6c634300081c0033",
+  "deployedBytecode": "0x5f80fdfea2646970667358221220191aa4756aa11b40ccf5d9ed38d21f19337544c8b4eb558dd7c6f7f1500fe64264736f6c634300081c0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "immutableReferences": {},
+  "inputSourceName": "project/contracts/libraries/uniswap/v3/TickMath.sol",
+  "buildInfoId": "solc-0_8_28-ca3dcbdc8f0a60dda9bb520ec299f9217d71c6f1"
+}

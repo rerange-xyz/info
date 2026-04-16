@@ -1,0 +1,13 @@
+# Other files
+.DS_Store
+.vscode/
+.idea/
+node_modules/
+dist/
+build/
+coverage/
+logs/
+*.log
+.env
+.env.local
+next-env.d.ts

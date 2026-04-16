@@ -1,0 +1,24 @@
+{
+  "_format": "hh3-artifact-1",
+  "contractName": "RerangeHubVaults",
+  "sourceName": "contracts/libraries/RerangeHubVaults.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "InvalidVault",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Unauthorized",
+      "type": "error"
+    }
+  ],
+  "bytecode": "0x6080806040523460175760399081601c823930815050f35b5f80fdfe5f80fdfea264697066735822122028da20d4e8151efaab2028ac86cd89241820270636ebf9e0ca60f4c1729e1f9064736f6c634300081c0033",
+  "deployedBytecode": "0x5f80fdfea264697066735822122028da20d4e8151efaab2028ac86cd89241820270636ebf9e0ca60f4c1729e1f9064736f6c634300081c0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "immutableReferences": {},
+  "inputSourceName": "project/contracts/libraries/RerangeHubVaults.sol",
+  "buildInfoId": "solc-0_8_28-6c7b7b35bc3355235d03f41871d0e700932ccc8c"
+}

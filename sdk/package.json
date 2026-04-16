@@ -1,0 +1,30 @@
+{
+  "name": "@rerange/wagmi",
+  "version": "0.0.1",
+  "description": "Rerange Wagmi SDK",
+  "homepage": "https://github.com/rerange-xyz/info#readme",
+  "repository": "https://github.com/rerange-xyz/info",
+  "keywords": ["liquid", "orders"],
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "sync": "node ./scripts/sync.js",
+    "generate": "wagmi generate --config wagmi.config.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run sync && npm run generate && npm run typecheck"
+  },
+  "dependencies": {
+    "@wagmi/core": "^3.4.1",
+    "viem": "^2.47.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.15",
+    "@wagmi/cli": "^2.5.2",
+    "typescript": "~5.8.0"
+  }
+}

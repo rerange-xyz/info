@@ -1,0 +1,13 @@
+{
+  "_format": "hh3-artifact-1",
+  "contractName": "RerangeHubFees",
+  "sourceName": "contracts/libraries/RerangeHubFees.sol",
+  "abi": [],
+  "bytecode": "0x6080806040523460175760399081601c823930815050f35b5f80fdfe5f80fdfea2646970667358221220b910156f37cc2a6be11113675780aaf6003d3c01e52f37da578906ad9763da5464736f6c634300081c0033",
+  "deployedBytecode": "0x5f80fdfea2646970667358221220b910156f37cc2a6be11113675780aaf6003d3c01e52f37da578906ad9763da5464736f6c634300081c0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "immutableReferences": {},
+  "inputSourceName": "project/contracts/libraries/RerangeHubFees.sol",
+  "buildInfoId": "solc-0_8_28-98db12bf40c3b37b4423ba6b7b24cb76e04ab44e"
+}
