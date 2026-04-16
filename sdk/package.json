@@ -1,6 +1,6 @@
 {
   "name": "@rerange/wagmi",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Rerange Wagmi SDK",
   "keywords": [
     "liquid",
@@ -17,19 +17,40 @@
   "license": "MIT",
   "author": "rerange.xyz",
   "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "import": "./dist/config/index.js",
+      "default": "./dist/config/index.js"
+    },
+    "./deployments": {
+      "types": "./dist/deployments.d.ts",
+      "import": "./dist/deployments.js",
+      "default": "./dist/deployments.js"
+    },
+    "./generated": {
+      "types": "./dist/generated.d.ts",
+      "import": "./dist/generated.js",
+      "default": "./dist/generated.js"
+    }
   },
-  "main": "index.js",
+  "main": "./dist/index.js",
   "files": [
-    "src",
+    "dist",
     "README.md"
   ],
   "scripts": {
     "sync": "node ./scripts/sync.js",
     "generate": "wagmi generate --config wagmi.config.ts",
     "typecheck": "tsc --noEmit",
-    "build": "npm run sync && npm run generate && npm run typecheck"
+    "dist": "tsc -p tsconfig.build.json && node ./scripts/dist.js",
+    "build": "npm run sync && npm run generate && npm run typecheck && npm run dist"
   },
   "dependencies": {
     "@wagmi/core": "^3.4.1",
