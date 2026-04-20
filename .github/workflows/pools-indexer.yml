@@ -1,0 +1,36 @@
+name: Pools Indexer
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * *"
+
+jobs:
+  index-pools:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: _info/infra/indexer/pools
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: _info/infra/indexer/pools/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run pools indexer
+        run: npm run start
+        env:
+          SUBGRAPH_API_KEY: ${{ secrets.SUBGRAPH_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          UNISWAP_TOP_POOLS_LIMIT: ${{ vars.UNISWAP_TOP_POOLS_LIMIT }}
+          UNISWAP_V3_SUBGRAPHS: ${{ vars.UNISWAP_V3_SUBGRAPHS }}
