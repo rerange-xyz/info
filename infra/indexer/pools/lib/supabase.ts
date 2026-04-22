@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js"
 
+import { POOL_RETENTION_DAYS } from "../config.js"
 import type { PoolRow, SyncResult } from "../types.js"
 
 function requireEnv(name: string): string {
@@ -36,57 +37,63 @@ function createSupabaseAdmin() {
 	})
 }
 
+async function pruneStalePools(): Promise<number> {
+	const cutoff = new Date(Date.now() - POOL_RETENTION_DAYS * 24 * 60 * 60 * 1000)
+	const supabase = createSupabaseAdmin()
+	const { data, error } = await supabase
+		.from("pools")
+		.delete()
+		.lt("timestamp", cutoff.toISOString())
+		.select("id")
+
+	if (error) {
+		throw new Error(`Supabase prune failed: ${error.message}`)
+	}
+
+	return data?.length ?? 0
+}
+
 export async function upsertPools(rows: PoolRow[]): Promise<SyncResult> {
 	if (rows.length === 0) {
-		return { synced: 0, inserted: 0, updated: 0 }
+		return { synced: 0, inserted: 0, updated: 0, pruned: 0 }
 	}
 
 	const supabase = createSupabaseAdmin()
 	const upsertAttempt = await supabase
 		.from("pools")
-		.upsert(rows, { onConflict: "network,pool" })
-		.select("pool, xmax")
+		.upsert(rows, { onConflict: "id" })
+		.select("id, xmax")
 
 	if (!upsertAttempt.error && upsertAttempt.data) {
 		const inserted = upsertAttempt.data.filter((row) => row.xmax === "0").length
 		const updated = upsertAttempt.data.length - inserted
+		const pruned = await pruneStalePools()
 
 		return {
 			synced: rows.length,
 			inserted,
 			updated,
+			pruned,
 		}
 	}
 
-	const existingByKey = new Set<string>()
+	const rowIds = rows.map((row) => row.id)
+	const { data: existingRows, error: lookupError } = await supabase
+		.from("pools")
+		.select("id")
+		.in("id", rowIds)
 
-	for (const network of [...new Set(rows.map((row) => row.network))]) {
-		const networkRows = rows.filter((row) => row.network === network)
-		const pools = networkRows.map((row) => row.pool)
-
-		const { data, error } = await supabase
-			.from("pools")
-			.select("pool, network")
-			.eq("network", network)
-			.in("pool", pools)
-
-		if (error) {
-			throw new Error(
-				`Supabase lookup failed for network ${network}: ${error.message}`,
-			)
-		}
-
-		for (const row of data ?? []) {
-			existingByKey.add(`${row.network}:${String(row.pool).toLowerCase()}`)
-		}
+	if (lookupError) {
+		throw new Error(`Supabase lookup failed: ${lookupError.message}`)
 	}
+
+	const existingById = new Set((existingRows ?? []).map((row) => String(row.id)))
 
 	const toInsert: PoolRow[] = []
 	const toUpdate: PoolRow[] = []
 
 	for (const row of rows) {
-		const key = `${row.network}:${row.pool.toLowerCase()}`
-		if (existingByKey.has(key)) {
+		if (existingById.has(row.id)) {
 			toUpdate.push(row)
 			continue
 		}
@@ -106,21 +113,23 @@ export async function upsertPools(rows: PoolRow[]): Promise<SyncResult> {
 			.from("pools")
 			.update({
 				timestamp: row.timestamp,
+				network: row.network,
+				pool: row.pool,
 				data: row.data,
 			})
-			.eq("network", row.network)
-			.eq("pool", row.pool)
+			.eq("id", row.id)
 
 		if (error) {
-			throw new Error(
-				`Supabase update failed for network ${row.network} pool ${row.pool}: ${error.message}`,
-			)
+			throw new Error(`Supabase update failed for ${row.id}: ${error.message}`)
 		}
 	}
+
+	const pruned = await pruneStalePools()
 
 	return {
 		synced: rows.length,
 		inserted: toInsert.length,
 		updated: toUpdate.length,
+		pruned,
 	}
 }

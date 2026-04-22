@@ -1,7 +1,7 @@
 create extension if not exists pgcrypto;
 
 create table if not exists public.pools (
-	id uuid primary key default gen_random_uuid(),
+	id text primary key,
 	created_at timestamptz not null default timezone('utc', now()),
 	timestamp timestamptz not null,
 	network bigint not null,

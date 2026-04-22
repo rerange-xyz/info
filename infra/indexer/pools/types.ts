@@ -39,6 +39,7 @@ export type PoolsResponse = {
 }
 
 export type PoolRow = {
+	id: string
 	timestamp: string
 	network: number
 	pool: string
@@ -49,4 +50,5 @@ export type SyncResult = {
 	synced: number
 	inserted: number
 	updated: number
+	pruned: number
 }

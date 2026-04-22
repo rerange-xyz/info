@@ -16,6 +16,7 @@ async function main() {
 
 		for (const pool of pools) {
 			rows.push({
+				id: `${config.network}:${pool.id.toLowerCase()}`,
 				timestamp,
 				network: config.network,
 				pool: pool.id.toLowerCase(),
@@ -35,7 +36,7 @@ async function main() {
 
 	const result = await upsertPools(rows)
 	console.log(
-		`Pools sync complete. Synced ${result.synced} pools. Inserted ${result.inserted}, updated ${result.updated}.`,
+		`Pools sync complete. Synced ${result.synced} pools. Inserted ${result.inserted}, updated ${result.updated}, pruned ${result.pruned}.`,
 	)
 }
 
