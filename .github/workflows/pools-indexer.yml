@@ -3,7 +3,7 @@ name: Pools Indexer
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "8 3,15 * * *"
 
 jobs:
   index-pools:
