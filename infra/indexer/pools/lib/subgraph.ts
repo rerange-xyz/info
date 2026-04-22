@@ -44,7 +44,7 @@ const TOP_POOLS_QUERY = `
 export function resolveSubgraphs(): SubgraphConfig[] {
 	const raw = process.env.UNISWAP_V3_SUBGRAPHS?.trim()
 	const fallbackTopPools = Number(
-		process.env.UNISWAP_TOP_POOLS_LIMIT ?? DEFAULT_TOP_POOLS_LIMIT,
+		process.env.UNISWAP_TOP_POOLS_LIMIT || DEFAULT_TOP_POOLS_LIMIT,
 	)
 
 	if (!raw) {
