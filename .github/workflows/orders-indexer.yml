@@ -1,0 +1,37 @@
+name: Orders Indexer
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  index-orders:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/indexer/orders
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: infra/indexer/orders/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run orders indexer
+        run: npm run start
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          ORDER_LOOKBACK_HOURS: ${{ vars.ORDER_LOOKBACK_HOURS }}
+          ORDER_RETENTION_DAYS: ${{ vars.ORDER_RETENTION_DAYS }}
+          ORDERS_TABLE: ${{ vars.ORDERS_TABLE }}
+          RERANGE_RPC_URLS: ${{ vars.RERANGE_RPC_URLS }}
