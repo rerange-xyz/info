@@ -1,13 +1,5 @@
 import type { Pool, PoolsResponse, SubgraphConfig } from "../types.js"
-
-const DEFAULT_TOP_POOLS_LIMIT = 100
-const DEFAULT_SUBGRAPHS: SubgraphConfig[] = [
-	{
-		network: 1,
-		id: "5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV",
-		topPools: DEFAULT_TOP_POOLS_LIMIT,
-	},
-]
+import {DEFAULT_TOP_POOLS_LIMIT, DEFAULT_SUBGRAPHS} from "../config.js"
 
 const TOP_POOLS_QUERY = `
 	query TopPools($first: Int!) {

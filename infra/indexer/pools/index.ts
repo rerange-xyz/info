@@ -2,20 +2,8 @@ import "dotenv/config"
 
 import { fetchTopPools, resolveSubgraphs } from "./lib/subgraph.js"
 import { upsertPools } from "./lib/supabase.js"
+import { requireEnv, isDryRun } from "./lib/utils.js"
 import type { PoolRow } from "./types.js"
-
-function requireEnv(name: string): string {
-	const value = process.env[name]?.trim()
-	if (!value) {
-		throw new Error(`Missing required environment variable: ${name}`)
-	}
-
-	return value
-}
-
-function isDryRun(): boolean {
-	return process.argv.includes("--dry-run") || process.env.DRY_RUN === "true"
-}
 
 async function main() {
 	const apiKey = requireEnv("SUBGRAPH_API_KEY")
