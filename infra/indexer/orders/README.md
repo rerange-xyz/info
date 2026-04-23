@@ -6,7 +6,7 @@ Simple multichain indexer for protocol orders. It reads `OrderOpened` and `Order
 
 - `SUPABASE_URL`: Supabase project URL.
 - `SUPABASE_SECRET_KEY`: Supabase service key.
-- `ORDER_LOOKBACK_HOURS`: Optional RPC lookback window. Defaults to `2`.
+- `ORDER_LOOKBACK_HOURS`: Optional RPC lookback window. Defaults to `3`.
 - `ORDER_RETENTION_DAYS`: Optional closed-order retention window. Defaults to `7`.
 - `ORDERS_TABLE`: Optional Supabase table name. Defaults to `orders`.
 - `RERANGE_RPC_URLS`: Optional JSON object that overrides RPC URLs by chain key or chain id.

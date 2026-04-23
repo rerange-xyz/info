@@ -1,0 +1,43 @@
+name: Resolver
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "* * * * *"
+
+jobs:
+  run-resolver:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/resolver
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: infra/resolver/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run resolver
+        run: npm run start
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          RERANGE_RESOLVER_KEY: ${{ secrets.RERANGE_RESOLVER_KEY }}
+          RESOLVER_CANDIDATE_SCAN_LIMIT: ${{ vars.RESOLVER_CANDIDATE_SCAN_LIMIT }}
+          RESOLVER_BATCH_SIZE: ${{ vars.RESOLVER_BATCH_SIZE }}
+          RESOLVER_DISTANCE_MULTIPLIER: ${{ vars.RESOLVER_DISTANCE_MULTIPLIER }}
+          RESOLVER_MIN_PROFIT_WEI: ${{ vars.RESOLVER_MIN_PROFIT_WEI }}
+          RESOLVER_ORDER_TABLE: ${{ vars.RESOLVER_ORDER_TABLE }}
+          RESOLVER_POOLS_TABLE: ${{ vars.RESOLVER_POOLS_TABLE }}
+          RERANGE_RPC_URLS: ${{ vars.RERANGE_RPC_URLS }}
+          RESOLVER_LOOP_INTERVAL_MS: ${{ vars.RESOLVER_LOOP_INTERVAL_MS }}
+          DRY_RUN: ${{ vars.DRY_RUN }}

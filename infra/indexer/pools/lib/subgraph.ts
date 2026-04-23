@@ -7,7 +7,7 @@ const TOP_POOLS_QUERY = `
 			first: $first
 			orderBy: totalValueLockedUSD
 			orderDirection: desc
-			where: { liquidity_gt: "0" }
+			where: { liquidity_gt: "0", totalValueLockedUSD_gt: "1000000" }
 		) {
 			id
 			createdAtTimestamp

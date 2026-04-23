@@ -28,7 +28,7 @@ export type OrdersIndexerConfig = {
 	tableName: string
 }
 
-const DEFAULT_LOOKBACK_HOURS = 2
+const DEFAULT_LOOKBACK_HOURS = 3
 const DEFAULT_RETENTION_DAYS = 7
 const DEFAULT_TABLE_NAME = "orders"
 

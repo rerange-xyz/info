@@ -3,7 +3,7 @@ name: Orders Indexer
 on:
   workflow_dispatch:
   schedule:
-    - cron: "8 * * * *"
+    - cron: "* * * * *"
 
 jobs:
   index-orders:
