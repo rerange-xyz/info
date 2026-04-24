@@ -2,7 +2,7 @@ name: Pools Indexer
 
 on:
   workflow_dispatch:
-  schedule:
+  #schedule:
   #  - cron: "* * * * *"
 
 concurrency:
