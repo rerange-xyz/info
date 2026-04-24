@@ -3,7 +3,11 @@ name: Resolver
 on:
   workflow_dispatch:
   schedule:
-    - cron: "* * * * *"
+  #  - cron: "* * * * *"
+
+concurrency:
+  group: resolver
+  cancel-in-progress: false
 
 jobs:
   run-resolver:

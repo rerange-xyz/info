@@ -3,7 +3,11 @@ name: Orders Indexer
 on:
   workflow_dispatch:
   schedule:
-    - cron: "* * * * *"
+  #  - cron: "* * * * *"
+
+concurrency:
+  group: orders-indexer
+  cancel-in-progress: false
 
 jobs:
   index-orders:

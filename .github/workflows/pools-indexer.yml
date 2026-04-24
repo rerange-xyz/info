@@ -3,7 +3,11 @@ name: Pools Indexer
 on:
   workflow_dispatch:
   schedule:
-    - cron: "8 */8 * * *"
+  #  - cron: "* * * * *"
+
+concurrency:
+  group: pools-indexer
+  cancel-in-progress: false
 
 jobs:
   index-pools:
