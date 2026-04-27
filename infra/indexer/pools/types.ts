@@ -2,6 +2,7 @@ export type SubgraphConfig = {
   network: number;
   id: string;
   topPools?: number;
+  tokens?: string[];
 };
 
 export type Token = {

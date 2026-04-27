@@ -2,12 +2,18 @@ import type { Pool, PoolsResponse, SubgraphConfig } from "../types.js";
 import { DEFAULT_TOP_POOLS_LIMIT, DEFAULT_SUBGRAPHS } from "../config.js";
 
 const TOP_POOLS_QUERY = `
-	query TopPools($first: Int!) {
+  query TopPools($first: Int!, $tokens: [String!]!) {
 		pools(
 			first: $first
 			orderBy: totalValueLockedUSD
 			orderDirection: desc
-			where: { liquidity_gt: "0", totalValueLockedUSD_gt: "1000000" }
+      where: {
+        liquidity_gt: "0"
+        totalValueLockedUSD_gt: "1000000"
+        feeTier_in: ["100", "500", "3000"]
+        token0_in: $tokens
+        token1_in: $tokens
+      }
 		) {
 			id
 			createdAtTimestamp
@@ -88,10 +94,17 @@ export function resolveSubgraphs(): SubgraphConfig[] {
       );
     }
 
+    if (!candidate.tokens?.length) {
+      throw new Error(
+        `UNISWAP_V3_SUBGRAPHS[${index}].tokens must be a non-empty array of token addresses`,
+      );
+    }
+
     return {
       network: candidate.network,
       id: candidate.id.trim(),
       topPools: candidate.topPools ?? fallbackTopPools,
+      tokens: candidate.tokens ?? [],
     };
   });
 }
@@ -111,6 +124,7 @@ export async function fetchTopPools(
         query: TOP_POOLS_QUERY,
         variables: {
           first: config.topPools ?? DEFAULT_TOP_POOLS_LIMIT,
+          tokens: config.tokens ?? [],
         },
       }),
     },
