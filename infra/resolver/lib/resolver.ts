@@ -480,8 +480,19 @@ export async function runResolverOnce(config: ResolverConfig) {
       );
     }
 
+    const walletAccount = chain.walletClient.account;
+    if (!walletAccount) {
+      throw new Error(
+        `Wallet account is required to execute on chain ${chain.chainId}`,
+      );
+    }
+
     const hash = await chain.walletClient.writeContract({
-      ...finalRequest,
+      address: finalRequest.address,
+      abi: finalRequest.abi,
+      functionName: finalRequest.functionName,
+      args: finalRequest.args,
+      account: walletAccount,
       chain: chain.walletClient.chain,
       gas: gasEstimate,
       ...(feeEstimate.maxFeePerGas
