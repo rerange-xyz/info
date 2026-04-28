@@ -38,8 +38,10 @@ export type ChainSyncSummary = {
   fromBlock: bigint;
   toBlock: bigint;
   openedEvents: number;
+  rerangedEvents: number;
   closedEvents: number;
   openedSync: SyncResult;
+  rerangedSync: SyncResult;
   closedSync: SyncResult;
   pruned: number;
 };

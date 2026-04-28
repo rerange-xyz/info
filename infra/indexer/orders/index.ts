@@ -17,7 +17,7 @@ async function main() {
     });
 
     console.log(
-      `Fetched ${result.openedEvents.length} opened and ${result.closedEvents.length} closed order events for ${chain.chainKey} (${chain.chainId}) from block ${result.fromBlock} to ${result.toBlock}.`,
+      `Fetched ${result.openedEvents.length} opened, ${result.rerangedEvents.length} reranged, and ${result.closedEvents.length} closed order events for ${chain.chainKey} (${chain.chainId}) from block ${result.fromBlock} to ${result.toBlock}.`,
     );
 
     if (isDryRun()) {
@@ -27,9 +27,15 @@ async function main() {
         fromBlock: result.fromBlock,
         toBlock: result.toBlock,
         openedEvents: result.openedEvents.length,
+        rerangedEvents: result.rerangedEvents.length,
         closedEvents: result.closedEvents.length,
         openedSync: {
           synced: result.openedRows.length,
+          inserted: 0,
+          updated: 0,
+        },
+        rerangedSync: {
+          synced: result.rerangedRows.length,
           inserted: 0,
           updated: 0,
         },
@@ -44,6 +50,10 @@ async function main() {
     }
 
     const openedSync = await upsertOrders(config.tableName, result.openedRows);
+    const rerangedSync = await upsertOrders(
+      config.tableName,
+      result.rerangedRows,
+    );
     const closedSync = await upsertOrders(config.tableName, result.closedRows);
 
     summaries.push({
@@ -52,8 +62,10 @@ async function main() {
       fromBlock: result.fromBlock,
       toBlock: result.toBlock,
       openedEvents: result.openedEvents.length,
+      rerangedEvents: result.rerangedEvents.length,
       closedEvents: result.closedEvents.length,
       openedSync,
+      rerangedSync,
       closedSync,
       pruned: 0,
     });
@@ -63,7 +75,7 @@ async function main() {
     console.log("Dry run complete.");
     for (const summary of summaries) {
       console.log(
-        `${summary.chainKey}: prepared ${summary.openedSync.synced} opened rows and ${summary.closedSync.synced} closed rows from ${summary.fromBlock} to ${summary.toBlock}.`,
+        `${summary.chainKey}: prepared ${summary.openedSync.synced} opened rows, ${summary.rerangedSync.synced} reranged rows, and ${summary.closedSync.synced} closed rows from ${summary.fromBlock} to ${summary.toBlock}.`,
       );
     }
     return;
@@ -76,7 +88,7 @@ async function main() {
 
   for (const summary of summaries) {
     console.log(
-      `${summary.chainKey}: opened synced ${summary.openedSync.synced} (${summary.openedSync.inserted} inserted, ${summary.openedSync.updated} updated), closed synced ${summary.closedSync.synced} (${summary.closedSync.inserted} inserted, ${summary.closedSync.updated} updated).`,
+      `${summary.chainKey}: opened synced ${summary.openedSync.synced} (${summary.openedSync.inserted} inserted, ${summary.openedSync.updated} updated), reranged synced ${summary.rerangedSync.synced} (${summary.rerangedSync.inserted} inserted, ${summary.rerangedSync.updated} updated), closed synced ${summary.closedSync.synced} (${summary.closedSync.inserted} inserted, ${summary.closedSync.updated} updated).`,
     );
   }
 

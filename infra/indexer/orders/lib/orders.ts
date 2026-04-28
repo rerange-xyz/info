@@ -24,6 +24,14 @@ type ClosedEventArgs = {
   accruedFee1?: bigint;
 };
 
+type RerangedEventArgs = {
+  orderKey?: Hex;
+  lowerTick?: number | bigint;
+  upperTick?: number | bigint;
+  sourceBalance?: bigint;
+  rerangeCount?: number | bigint;
+};
+
 type RawOrderState = {
   order: {
     vault: Address;
@@ -91,11 +99,7 @@ function statusFromState(state: RawOrderState): string {
     return "closed";
   }
 
-  if (Number(state.status) === 2) {
-    return "completed";
-  }
-
-  return Number(state.progressBps) === 0 ? "open" : "active";
+  return "open";
 }
 
 const orderOpenedEventAbi = getAbiItem({
@@ -106,6 +110,11 @@ const orderOpenedEventAbi = getAbiItem({
 const orderClosedEventAbi = getAbiItem({
   abi: hubAbi as Abi,
   name: "OrderClosed",
+}) as AbiEvent;
+
+const orderRerangedEventAbi = getAbiItem({
+  abi: hubAbi as Abi,
+  name: "OrderReranged",
 }) as AbiEvent;
 
 function createClient(chain: ChainConfig) {
@@ -275,6 +284,46 @@ async function fetchClosedEvents(params: {
   );
 }
 
+async function fetchRerangedEvents(params: {
+  client: PublicClient;
+  chain: ChainConfig;
+  fromBlock: bigint;
+  toBlock: bigint;
+}): Promise<OrderEventRecord[]> {
+  const logs = await params.client.getLogs({
+    address: params.chain.deployment.hubAddress,
+    event: orderRerangedEventAbi,
+    fromBlock: params.fromBlock,
+    toBlock: params.toBlock,
+  });
+  const timestampByBlock = await loadBlockTimestampMap(params.client, logs);
+
+  return dedupeLatestByOrderKey(
+    logs.map((log) => {
+      const args = log.args as RerangedEventArgs;
+      return {
+        orderKey: getRequiredLogField(args.orderKey, "orderKey"),
+        blockNumber: getRequiredLogField(log.blockNumber, "blockNumber"),
+        logIndex: Number(getRequiredLogField(log.logIndex, "logIndex")),
+        transactionHash: getRequiredLogField(
+          log.transactionHash,
+          "transactionHash",
+        ) as Hex,
+        timestamp:
+          timestampByBlock.get(
+            getRequiredLogField(log.blockNumber, "blockNumber").toString(),
+          ) ?? new Date().toISOString(),
+        args: {
+          lowerTick: Number(args.lowerTick ?? 0),
+          upperTick: Number(args.upperTick ?? 0),
+          sourceBalance: String(args.sourceBalance ?? 0n),
+          rerangeCount: Number(args.rerangeCount ?? 0),
+        },
+      };
+    }),
+  );
+}
+
 async function readOrderSnapshot(params: {
   client: PublicClient;
   chain: ChainConfig;
@@ -302,7 +351,7 @@ async function readOrderSnapshot(params: {
 
 function buildOrderRow(params: {
   chain: ChainConfig;
-  eventType: "opened" | "closed";
+  eventType: "opened" | "reranged" | "closed";
   event: OrderEventRecord;
   snapshot: OrderSnapshot;
 }): OrderRow {
@@ -343,8 +392,14 @@ export async function collectChainOrderRows(params: {
     params.chain.averageBlockTimeSeconds,
   );
 
-  const [openedEvents, closedEvents] = await Promise.all([
+  const [openedEvents, rerangedEvents, closedEvents] = await Promise.all([
     fetchOpenedEvents({
+      client,
+      chain: params.chain,
+      fromBlock,
+      toBlock,
+    }),
+    fetchRerangedEvents({
       client,
       chain: params.chain,
       fromBlock,
@@ -409,12 +464,39 @@ export async function collectChainOrderRows(params: {
     )
   ).filter((row): row is OrderRow => Boolean(row));
 
+  const rerangedRows = (
+    await Promise.all(
+      rerangedEvents.map(async (event) => {
+        try {
+          const snapshot = await readOrderSnapshot({
+            client,
+            chain: params.chain,
+            orderKey: event.orderKey,
+          });
+          return buildOrderRow({
+            chain: params.chain,
+            eventType: "reranged",
+            event,
+            snapshot,
+          });
+        } catch (error) {
+          console.warn(
+            `Failed to read reranged order ${event.orderKey} on chain ${params.chain.chainId}: ${formatError(error)}`,
+          );
+          return null;
+        }
+      }),
+    )
+  ).filter((row): row is OrderRow => Boolean(row));
+
   return {
     fromBlock,
     toBlock,
     openedEvents,
+    rerangedEvents,
     closedEvents,
     openedRows,
+    rerangedRows,
     closedRows,
   };
 }
