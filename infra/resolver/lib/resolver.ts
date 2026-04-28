@@ -1,5 +1,5 @@
 import type { Abi, AbiFunction, Address, Hex } from "viem";
-import { decodeAbiParameters, formatGwei } from "viem";
+import { decodeAbiParameters, encodeFunctionData, formatGwei } from "viem";
 
 import { hubAbi } from "@rerange/wagmi";
 
@@ -53,6 +53,16 @@ type DecodedRerangePreview = {
   reward1: bigint;
   willClose: boolean;
 };
+
+type FinalExecutionCall =
+  | {
+      functionName: "rerange";
+      args: [Hex];
+    }
+  | {
+      functionName: "multicall";
+      args: [Hex[]];
+    };
 
 function parseStoredOrderState(row: OrdersTableRow): StoredOrderState | null {
   const data = asRecord(row.data);
@@ -373,6 +383,32 @@ function summarizeCandidates(candidates: ParsedOrderCandidate[]) {
     .join(", ");
 }
 
+function summarizeFailedOrderKeys(simulation: BatchSimulation) {
+  return simulation.orderKeys.filter((_, index) => !simulation.success[index]);
+}
+
+function buildFinalExecutionCall(orderKeys: Hex[]): FinalExecutionCall {
+  if (orderKeys.length === 1) {
+    return {
+      functionName: "rerange",
+      args: [orderKeys[0]!],
+    };
+  }
+
+  return {
+    functionName: "multicall",
+    args: [
+      orderKeys.map((orderKey) =>
+        encodeFunctionData({
+          abi: hubAbi,
+          functionName: "rerange",
+          args: [orderKey],
+        }),
+      ),
+    ],
+  };
+}
+
 export async function runResolverOnce(config: ResolverConfig) {
   for (const chain of config.chains) {
     console.log(`Scanning chain ${chain.chainKey} (${chain.chainId})`);
@@ -424,12 +460,57 @@ export async function runResolverOnce(config: ResolverConfig) {
       continue;
     }
 
-    const finalOrderKeys = profitableRewards.map((reward) => reward.orderKey);
+    const profitableOrderKeySet = new Set(
+      profitableRewards.map((reward) => reward.orderKey.toLowerCase()),
+    );
+    const profitableCandidates = successfulCandidates.filter((candidate) =>
+      profitableOrderKeySet.has(candidate.orderKey.toLowerCase()),
+    );
+    const submissionSimulation = await simulateBatch(
+      chain,
+      profitableCandidates,
+    );
+    const failedSubmissionOrderKeys =
+      summarizeFailedOrderKeys(submissionSimulation);
+    if (failedSubmissionOrderKeys.length > 0) {
+      console.log(
+        `Skipping ${chain.chainKey} execution: final batch is no longer executable for ${failedSubmissionOrderKeys.join(", ")}.`,
+      );
+      continue;
+    }
+
+    const submissionRewards = submissionSimulation.decodedRewards.filter(
+      (reward) => reward.rewardEthWei > 0n,
+    );
+    if (submissionRewards.length !== profitableCandidates.length) {
+      console.log(
+        `Skipping ${chain.chainKey} execution: final batch reward check changed before submission.`,
+      );
+      continue;
+    }
+
+    const finalOrderKeys = submissionRewards.map((reward) => reward.orderKey);
+    const executionCall = buildFinalExecutionCall(finalOrderKeys);
+    try {
+      await chain.publicClient.simulateContract({
+        address: chain.deployment.hubAddress,
+        abi: hubAbi,
+        functionName: executionCall.functionName,
+        args: executionCall.args,
+        account: chain.resolverAddress,
+      });
+    } catch (error) {
+      console.log(
+        `Skipping ${chain.chainKey} execution: strict pre-submit simulation failed: ${error instanceof Error ? error.message : String(error)}`,
+      );
+      continue;
+    }
+
     const finalRequest = {
       address: chain.deployment.hubAddress,
       abi: hubAbi,
-      functionName: "batchRerange" as const,
-      args: [finalOrderKeys] as [Hex[]],
+      functionName: executionCall.functionName,
+      args: executionCall.args,
       account: chain.resolverAddress as Address,
     };
     const gasEstimate =
@@ -442,7 +523,7 @@ export async function runResolverOnce(config: ResolverConfig) {
       );
     }
 
-    const totalRewardWei = profitableRewards.reduce(
+    const totalRewardWei = submissionRewards.reduce(
       (total, reward) => total + reward.rewardEthWei,
       0n,
     );
@@ -503,7 +584,9 @@ export async function runResolverOnce(config: ResolverConfig) {
         : { gasPrice: feeEstimate.gasPrice }),
     });
 
-    console.log(`Submitted ${chain.chainKey} batchRerange tx ${hash}`);
+    console.log(
+      `Submitted ${chain.chainKey} ${finalRequest.functionName} tx ${hash}`,
+    );
     const receipt = await chain.publicClient.waitForTransactionReceipt({
       hash,
     });
