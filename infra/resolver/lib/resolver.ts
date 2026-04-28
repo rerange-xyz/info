@@ -1,5 +1,5 @@
 import type { Abi, AbiFunction, Address, Hex } from "viem";
-import { decodeAbiParameters, encodeFunctionData, formatGwei } from "viem";
+import { decodeAbiParameters, formatGwei } from "viem";
 
 import { hubAbi } from "@rerange/wagmi";
 
@@ -60,7 +60,7 @@ type FinalExecutionCall =
       args: [Hex];
     }
   | {
-      functionName: "multicall";
+      functionName: "batchRerange";
       args: [Hex[]];
     };
 
@@ -396,16 +396,8 @@ function buildFinalExecutionCall(orderKeys: Hex[]): FinalExecutionCall {
   }
 
   return {
-    functionName: "multicall",
-    args: [
-      orderKeys.map((orderKey) =>
-        encodeFunctionData({
-          abi: hubAbi,
-          functionName: "rerange",
-          args: [orderKey],
-        }),
-      ),
-    ],
+    functionName: "batchRerange",
+    args: [orderKeys],
   };
 }
 
