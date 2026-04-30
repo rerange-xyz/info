@@ -1,5 +1,5 @@
 import type { Abi, AbiFunction, Address, Hex } from "viem";
-import { decodeAbiParameters, formatGwei } from "viem";
+import { decodeAbiParameters, encodeFunctionData, formatGwei } from "viem";
 
 import { hubAbi } from "@rerange/wagmi";
 
@@ -401,6 +401,40 @@ function buildFinalExecutionCall(orderKeys: Hex[]): FinalExecutionCall {
   };
 }
 
+async function estimateFinalExecutionGas(params: {
+  chain: ResolverChainConfig;
+  executionCall: FinalExecutionCall;
+  finalOrderKeys: Hex[];
+}) {
+  const request = {
+    address: params.chain.deployment.hubAddress,
+    abi: hubAbi,
+    functionName: params.executionCall.functionName,
+    args: params.executionCall.args,
+    account: params.chain.resolverAddress as Address,
+  };
+
+  if (params.executionCall.functionName !== "batchRerange") {
+    return params.chain.publicClient.estimateContractGas(request);
+  }
+
+  const multicallData = params.finalOrderKeys.map((orderKey) =>
+    encodeFunctionData({
+      abi: hubAbi,
+      functionName: "rerange",
+      args: [orderKey],
+    }),
+  );
+
+  return params.chain.publicClient.estimateContractGas({
+    address: params.chain.deployment.hubAddress,
+    abi: hubAbi,
+    functionName: "multicall",
+    args: [multicallData],
+    account: params.chain.resolverAddress as Address,
+  });
+}
+
 export async function runResolverOnce(config: ResolverConfig) {
   for (const chain of config.chains) {
     console.log(`Scanning chain ${chain.chainKey} (${chain.chainId})`);
@@ -505,8 +539,11 @@ export async function runResolverOnce(config: ResolverConfig) {
       args: executionCall.args,
       account: chain.resolverAddress as Address,
     };
-    const gasEstimate =
-      await chain.publicClient.estimateContractGas(finalRequest);
+    const gasEstimate = await estimateFinalExecutionGas({
+      chain,
+      executionCall,
+      finalOrderKeys,
+    });
     const feeEstimate = await chain.publicClient.estimateFeesPerGas();
     const gasPriceWei = feeEstimate.maxFeePerGas ?? feeEstimate.gasPrice;
     if (!gasPriceWei) {

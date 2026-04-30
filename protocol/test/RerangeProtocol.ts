@@ -119,6 +119,54 @@ describe("RerangeProtocol", async () => {
     return hash;
   }
 
+  async function estimateBatchRerangeGas(orderKeys: readonly `0x${string}`[]) {
+    const batchEstimate = await fixture.publicClient.estimateContractGas({
+      address: fixture.hub.address,
+      abi: fixture.hub.abi,
+      functionName: "batchRerange",
+      args: [orderKeys],
+      account: fixture.resolver.account,
+    });
+
+    if (orderKeys.length === 0) {
+      return batchEstimate;
+    }
+
+    const simulated: any = await fixture.hub.simulate.batchRerange(
+      [orderKeys],
+      {
+        account: fixture.resolver.account,
+      },
+    );
+    const executableCalls = orderKeys.flatMap((orderKey, index) =>
+      simulated.result[0][index]
+        ? [
+            encodeFunctionData({
+              abi: fixture.hub.abi,
+              functionName: "rerange",
+              args: [orderKey],
+            }),
+          ]
+        : [],
+    );
+
+    if (executableCalls.length === 0) {
+      return batchEstimate;
+    }
+
+    const multicallEstimate = await fixture.publicClient.estimateContractGas({
+      address: fixture.hub.address,
+      abi: fixture.hub.abi,
+      functionName: "multicall",
+      args: [executableCalls],
+      account: fixture.resolver.account,
+    });
+
+    return multicallEstimate > batchEstimate
+      ? multicallEstimate
+      : batchEstimate;
+  }
+
   async function futureTimestamp(offsetSeconds: bigint = 3_600n) {
     const block = await fixture.publicClient.getBlock();
     return block.timestamp + offsetSeconds;
@@ -2661,9 +2709,12 @@ describe("RerangeProtocol", async () => {
     assert.deepEqual(simulated.result[0], [true, false]);
     assert.equal(simulated.result[1].length, 2);
 
+    const gas = await estimateBatchRerangeGas([firstOrderKey, secondOrderKey]);
+
     await waitFor(
       fixture.hub.write.batchRerange([[firstOrderKey, secondOrderKey]], {
         account: fixture.resolver.account,
+        gas,
       }),
     );
 
@@ -2680,6 +2731,102 @@ describe("RerangeProtocol", async () => {
     );
     assert.equal(secondState.order.closed, false);
     assert.equal(secondState.rerangeCount, 0);
+  });
+
+  it("batches permissionless reranges when both orders are eligible", async () => {
+    const firstVault = await createVault(fixture.alice);
+    const secondVault = await fixture.hub.read.predictVault([
+      fixture.alice.account.address,
+      1n,
+    ]);
+    await waitFor(
+      fixture.hub.write.createVault({ account: fixture.alice.account }),
+    );
+    assert.equal(
+      (
+        await fixture.hub.read.vaults([fixture.alice.account.address])
+      ).toString(),
+      "2",
+    );
+
+    const firstCapital = await fundVaultWithUsdc(
+      fixture.alice,
+      firstVault,
+      5n * 10n ** 18n,
+    );
+    const secondCapital = await fundVaultWithUsdc(
+      fixture.alice,
+      secondVault,
+      5n * 10n ** 18n,
+    );
+    const openTick = await currentTick();
+    const firstTargetTick = openTick + V3_TICK_SPACING * 60;
+    const secondTargetTick = openTick + V3_TICK_SPACING * 66;
+    const triggerTicks = V3_TICK_SPACING * 20;
+
+    await openSellOrder(
+      firstVault,
+      firstTargetTick,
+      fixture.alice,
+      firstCapital,
+      false,
+      triggerTicks,
+    );
+    await openSellOrder(
+      secondVault,
+      secondTargetTick,
+      fixture.alice,
+      secondCapital,
+      false,
+      triggerTicks,
+    );
+
+    const intermediateTick = await movePriceIntoBand(
+      secondTargetTick - triggerTicks,
+      secondTargetTick - triggerTicks + V3_TICK_SPACING * 4,
+    );
+    assert.ok(intermediateTick >= secondTargetTick - triggerTicks);
+    assert.ok(
+      intermediateTick < secondTargetTick - triggerTicks + V3_TICK_SPACING * 4,
+    );
+    assert.ok(intermediateTick < firstTargetTick);
+
+    if (HUB_RERANGE_COOLDOWN > 0) {
+      await increaseTime(BigInt(HUB_RERANGE_COOLDOWN));
+    }
+
+    const firstOrderKey = await getVaultOrderKey(firstVault, 0n);
+    const secondOrderKey = await getVaultOrderKey(secondVault, 0n);
+    const simulated: any = await fixture.hub.simulate.batchRerange(
+      [[firstOrderKey, secondOrderKey]],
+      {
+        account: fixture.resolver.account,
+      },
+    );
+
+    assert.deepEqual(simulated.result[0], [true, true]);
+    assert.equal(simulated.result[1].length, 2);
+
+    const gas = await estimateBatchRerangeGas([firstOrderKey, secondOrderKey]);
+
+    await waitFor(
+      fixture.hub.write.batchRerange([[firstOrderKey, secondOrderKey]], {
+        account: fixture.resolver.account,
+        gas,
+      }),
+    );
+
+    const firstState: any = await fixture.hub.read.getOrderState([
+      firstOrderKey,
+    ]);
+    const secondState: any = await fixture.hub.read.getOrderState([
+      secondOrderKey,
+    ]);
+
+    assert.equal(firstState.order.closed, false);
+    assert.equal(firstState.rerangeCount, 1);
+    assert.equal(secondState.order.closed, false);
+    assert.equal(secondState.rerangeCount, 1);
   });
 
   it("keeps permissionless rerange from widening beyond the last live range", async () => {
