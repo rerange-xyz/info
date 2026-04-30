@@ -16,7 +16,7 @@ export interface RerangeHubVaults$Type {
   readonly immutableReferences: {};
   readonly inputSourceName: "project/contracts/libraries/RerangeHubVaults.sol";
   readonly buildInfoId: "solc-0_8_28-6c7b7b35bc3355235d03f41871d0e700932ccc8c";
-}
+};
 
 import "hardhat/types/artifacts";
 declare module "hardhat/types/artifacts" {

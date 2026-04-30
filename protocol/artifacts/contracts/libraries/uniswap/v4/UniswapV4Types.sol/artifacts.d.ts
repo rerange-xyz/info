@@ -16,7 +16,7 @@ export interface UniswapV4Types$Type {
   readonly immutableReferences: {};
   readonly inputSourceName: "project/contracts/libraries/uniswap/v4/UniswapV4Types.sol";
   readonly buildInfoId: "solc-0_8_28-ca3dcbdc8f0a60dda9bb520ec299f9217d71c6f1";
-}
+};
 
 import "hardhat/types/artifacts";
 declare module "hardhat/types/artifacts" {

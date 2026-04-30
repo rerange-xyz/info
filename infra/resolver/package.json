@@ -7,7 +7,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@rerange/wagmi": "^0.0.7",
+    "@rerange/wagmi": "0.0.8",
     "@supabase/supabase-js": "^2.57.4",
     "dotenv": "^17.2.3",
     "viem": "^2.47.0"

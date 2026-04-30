@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const sdkRoot = path.resolve(scriptDir, "..");
-const protocolRoot = path.resolve(sdkRoot, "../../protocol");
+const protocolRoot = path.resolve(sdkRoot, "../protocol");
 
 const configRoot = path.join(sdkRoot, "src", "config");
 

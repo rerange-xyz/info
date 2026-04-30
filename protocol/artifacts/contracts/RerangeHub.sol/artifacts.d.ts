@@ -16,7 +16,7 @@ export interface RerangeHub$Type {
   readonly immutableReferences: {"746":[{"length":32,"start":1922},{"length":32,"start":2015},{"length":32,"start":4352},{"length":32,"start":5728},{"length":32,"start":13241}]};
   readonly inputSourceName: "project/contracts/RerangeHub.sol";
   readonly buildInfoId: "solc-0_8_28-ff1db7398471e457688528cf81fedb77b0e7b1d4";
-}
+};
 
 import "hardhat/types/artifacts";
 declare module "hardhat/types/artifacts" {

@@ -16,7 +16,7 @@ export interface IWETH$Type {
   readonly immutableReferences: {};
   readonly inputSourceName: "project/contracts/interfaces/IWETH.sol";
   readonly buildInfoId: "solc-0_8_28-ca3dcbdc8f0a60dda9bb520ec299f9217d71c6f1";
-}
+};
 
 import "hardhat/types/artifacts";
 declare module "hardhat/types/artifacts" {

@@ -16,7 +16,7 @@ export interface RerangeHubViews$Type {
   readonly immutableReferences: {};
   readonly inputSourceName: "project/contracts/libraries/_RerangeHubViews.sol";
   readonly buildInfoId: "solc-0_8_28-98db12bf40c3b37b4423ba6b7b24cb76e04ab44e";
-}
+};
 
 import "hardhat/types/artifacts";
 declare module "hardhat/types/artifacts" {

@@ -18,7 +18,7 @@
   "completionThresholdBps": 8,
   "paused": false,
   "contracts": {
-    "uniswapV3Adapter": "0x856feb0c640709d654b45fc70758c3c4a3d7cea0",
+    "uniswapV3Adapter": "0xef1d500cba25cb3fc571fa2a2b01dc0004ca2423",
     "uniswapV4Adapter": "0x122a3370ff12625bef260145d9eb69a66bcc6a09",
     "rerangeHubEngine": "0x42fD58983Ff351b73e4b6d7447324F578dcae98A",
     "rerangeHubViews": "0xbB33656af5704140CC276E2aE44208D88d3633a1",

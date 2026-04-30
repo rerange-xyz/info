@@ -16,7 +16,7 @@ export interface UniswapV4Adapter$Type {
   readonly immutableReferences: {"4724":[{"length":32,"start":1418},{"length":32,"start":3179},{"length":32,"start":3880},{"length":32,"start":5127},{"length":32,"start":5599},{"length":32,"start":7958},{"length":32,"start":9239},{"length":32,"start":11136}],"4726":[{"length":32,"start":498},{"length":32,"start":5749},{"length":32,"start":6295},{"length":32,"start":8125},{"length":32,"start":9162}]};
   readonly inputSourceName: "project/contracts/adapters/UniswapV4Adapter.sol";
   readonly buildInfoId: "solc-0_8_28-6c7b7b35bc3355235d03f41871d0e700932ccc8c";
-}
+};
 
 import "hardhat/types/artifacts";
 declare module "hardhat/types/artifacts" {
