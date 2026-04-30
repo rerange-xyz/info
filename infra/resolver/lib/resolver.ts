@@ -31,6 +31,26 @@ import {
   parseDecimalToWei,
 } from "./utils.js";
 
+const LIVE_TICK_MULTICALL_CHUNK_SIZE = 128;
+
+const uniswapV3PoolAbi = [
+  {
+    type: "function",
+    name: "slot0",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [
+      { name: "sqrtPriceX96", type: "uint160" },
+      { name: "tick", type: "int24" },
+      { name: "observationIndex", type: "uint16" },
+      { name: "observationCardinality", type: "uint16" },
+      { name: "observationCardinalityNext", type: "uint16" },
+      { name: "feeProtocol", type: "uint8" },
+      { name: "unlocked", type: "bool" },
+    ],
+  },
+] as const satisfies Abi;
+
 const rerangeFunctionAbiItem = (hubAbi as Abi).find(
   (item): item is AbiFunction =>
     item.type === "function" &&
@@ -63,6 +83,16 @@ type FinalExecutionCall =
       functionName: "batchRerange";
       args: [Hex[]];
     };
+
+type CandidateSeed = {
+  row: OrdersTableRow;
+  orderKey: Hex;
+  status: string;
+  poolAddress: Address;
+  targetTick: number;
+  triggerTicks: number;
+  state: StoredOrderState;
+};
 
 function parseStoredOrderState(row: OrdersTableRow): StoredOrderState | null {
   const data = asRecord(row.data);
@@ -132,16 +162,14 @@ function parseStoredOrderState(row: OrdersTableRow): StoredOrderState | null {
   };
 }
 
-function buildCandidate(
+function buildCandidateSeed(
   row: OrdersTableRow,
   state: StoredOrderState,
   deployment: ProtocolDeployment,
-  distanceMultiplier: number,
-): ParsedOrderCandidate | null {
+): CandidateSeed | null {
   const targetTick = asNumber(state.order.targetTick);
-  const currentTick = asNumber(state.market.currentTick);
   const triggerTicks = asNumber(state.order.triggerTicks) ?? 0;
-  if (targetTick === null || currentTick === null) {
+  if (targetTick === null) {
     return null;
   }
 
@@ -154,30 +182,93 @@ function buildCandidate(
     return null;
   }
 
-  const tickDistance = absInt(targetTick - currentTick);
-  const readinessScore =
-    triggerTicks > 0 ? tickDistance / triggerTicks : tickDistance;
-  const isLikelyReady =
-    row.status === "completed" ||
-    triggerTicks === 0 ||
-    tickDistance <= triggerTicks * distanceMultiplier;
-
-  if (!isLikelyReady) {
-    return null;
-  }
-
   return {
     row,
     orderKey: row.key as Hex,
     status: row.status,
     poolAddress: poolAddress.toLowerCase() as Address,
     targetTick,
-    currentTick,
     triggerTicks,
-    tickDistance,
-    readinessScore,
     state,
   };
+}
+
+function buildCandidate(
+  seed: CandidateSeed,
+  currentTick: number,
+  distanceMultiplier: number,
+): ParsedOrderCandidate | null {
+  const tickDistance = absInt(seed.targetTick - currentTick);
+  const readinessScore =
+    seed.triggerTicks > 0 ? tickDistance / seed.triggerTicks : tickDistance;
+  const isLikelyReady =
+    seed.status === "completed" ||
+    seed.triggerTicks === 0 ||
+    tickDistance <= seed.triggerTicks * distanceMultiplier;
+
+  if (!isLikelyReady) {
+    return null;
+  }
+
+  return {
+    row: seed.row,
+    orderKey: seed.orderKey,
+    status: seed.status,
+    poolAddress: seed.poolAddress,
+    targetTick: seed.targetTick,
+    currentTick,
+    triggerTicks: seed.triggerTicks,
+    tickDistance,
+    readinessScore,
+    state: seed.state,
+  };
+}
+
+function chunkArray<T>(items: T[], size: number) {
+  const chunks: T[][] = [];
+
+  for (let index = 0; index < items.length; index += size) {
+    chunks.push(items.slice(index, index + size));
+  }
+
+  return chunks;
+}
+
+async function loadLiveCurrentTicks(params: {
+  chain: ResolverChainConfig;
+  poolAddresses: Address[];
+}) {
+  const tickByPoolAddress = new Map<string, number>();
+
+  for (const chunk of chunkArray(
+    params.poolAddresses,
+    LIVE_TICK_MULTICALL_CHUNK_SIZE,
+  )) {
+    const results = await params.chain.publicClient.multicall({
+      allowFailure: true,
+      contracts: chunk.map((poolAddress) => ({
+        address: poolAddress,
+        abi: uniswapV3PoolAbi,
+        functionName: "slot0",
+      })),
+    });
+
+    results.forEach((result, index) => {
+      if (result.status !== "success") {
+        return;
+      }
+
+      const poolAddress = chunk[index];
+      const slot0 = result.result;
+      if (!poolAddress || !slot0) {
+        return;
+      }
+
+      tickByPoolAddress.set(poolAddress.toLowerCase(), Number(slot0[1]));
+    });
+  }
+
+  return tickByPoolAddress;
 }
 
 async function loadCandidatesForChain(
@@ -190,17 +281,32 @@ async function loadCandidatesForChain(
     limit: config.candidateScanLimit,
   });
 
-  const parsed = rows
+  const seeds = rows
     .map((row) => {
       const state = parseStoredOrderState(row);
-      return state
-        ? buildCandidate(
-            row,
-            state,
-            chain.deployment,
-            config.distanceMultiplier,
-          )
-        : null;
+      return state ? buildCandidateSeed(row, state, chain.deployment) : null;
+    })
+    .filter((candidate): candidate is CandidateSeed => Boolean(candidate));
+
+  if (seeds.length === 0) {
+    return [];
+  }
+
+  const uniquePoolAddresses = [
+    ...new Set(seeds.map((seed) => seed.poolAddress)),
+  ];
+
+  const tickByPoolAddress = await loadLiveCurrentTicks({
+    chain,
+    poolAddresses: uniquePoolAddresses,
+  });
+
+  const parsed = seeds
+    .map((seed) => {
+      const currentTick = tickByPoolAddress.get(seed.poolAddress.toLowerCase());
+      return currentTick === undefined
+        ? null
+        : buildCandidate(seed, currentTick, config.distanceMultiplier);
     })
     .filter((candidate): candidate is ParsedOrderCandidate =>
       Boolean(candidate),
@@ -221,6 +327,15 @@ async function loadCandidatesForChain(
       return left.row.timestamp.localeCompare(right.row.timestamp);
     })
     .slice(0, config.batchSize);
+
+  if (
+    tickByPoolAddress.size !== 0 &&
+    tickByPoolAddress.size !== uniquePoolAddresses.length
+  ) {
+    console.warn(
+      `Skipped ${uniquePoolAddresses.length - tickByPoolAddress.size} pools on ${chain.chainKey} because live currentTick could not be fetched.`,
+    );
+  }
 
   if (parsed.length === 0) {
     return [];

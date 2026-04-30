@@ -1,5 +1,6 @@
-import { createPublicClient, createWalletClient, defineChain } from "viem";
+import { createPublicClient, createWalletClient } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
+import { base, mainnet } from "viem/chains";
 
 import { protocolDeployments } from "@rerange/wagmi";
 
@@ -36,6 +37,14 @@ const DEFAULT_RPC_URLS: Record<SupportedChainKey, string[]> = {
 const CHAIN_NAME_BY_KEY: Record<SupportedChainKey, string> = {
   ethereum: "Ethereum",
   base: "Base",
+};
+
+const VIEM_CHAIN_BY_KEY: Record<
+  SupportedChainKey,
+  typeof mainnet | typeof base
+> = {
+  ethereum: mainnet,
+  base,
 };
 
 const SUPPORTED_CHAINS: Array<{
@@ -191,6 +200,22 @@ function normalizeDeployment(params: {
   };
 }
 
+function buildChain(params: {
+  chainId: number;
+  chainKey: SupportedChainKey;
+  rpcUrls: string[];
+}) {
+  const chain = VIEM_CHAIN_BY_KEY[params.chainKey];
+
+  return {
+    ...chain,
+    rpcUrls: {
+      default: { http: params.rpcUrls },
+      public: { http: params.rpcUrls },
+    },
+  };
+}
+
 function createChainConfig(params: {
   chainId: number;
   chainKey: SupportedChainKey;
@@ -218,18 +243,15 @@ function createChainConfig(params: {
     deployment,
     rpcUrls,
   });
-  const publicClient = createPublicClient({
-    chain: defineChain({
-      id: params.chainId,
-      name: normalizedDeployment.chainName,
-      nativeCurrency: { decimals: 18, name: "Ether", symbol: "ETH" },
-      rpcUrls: {
-        default: { http: rpcUrls },
-        public: { http: rpcUrls },
-      },
-    }),
-    transport: createRpcTransport(rpcUrls),
+  const chain = buildChain({
+    chainId: params.chainId,
+    chainKey: params.chainKey,
+    rpcUrls,
   });
+  const publicClient = createPublicClient({
+    chain,
+    transport: createRpcTransport(rpcUrls),
+  }) as ResolverChainConfig["publicClient"];
 
   if (!params.privateKey) {
     return {
@@ -244,21 +266,12 @@ function createChainConfig(params: {
   }
 
   const account = privateKeyToAccount(params.privateKey);
-  const chain = defineChain({
-    id: params.chainId,
-    name: normalizedDeployment.chainName,
-    nativeCurrency: { decimals: 18, name: "Ether", symbol: "ETH" },
-    rpcUrls: {
-      default: { http: rpcUrls },
-      public: { http: rpcUrls },
-    },
-  });
 
   const walletClient = createWalletClient({
     account,
     chain,
     transport: createRpcTransport(rpcUrls),
-  });
+  }) as ResolverChainConfig["walletClient"];
 
   return {
     chainId: params.chainId,

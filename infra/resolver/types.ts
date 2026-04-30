@@ -1,4 +1,11 @@
-import type { Address, Hex, PublicClient, WalletClient } from "viem";
+import type {
+  Address,
+  Chain,
+  Hex,
+  PublicClient,
+  Transport,
+  WalletClient,
+} from "viem";
 
 export type ProtocolDeployment = {
   chainId: number;
@@ -20,8 +27,8 @@ export type ResolverChainConfig = {
   chainKey: SupportedChainKey;
   deployment: ProtocolDeployment;
   rpcUrls: string[];
-  publicClient: PublicClient;
-  walletClient: WalletClient | null;
+  publicClient: PublicClient<Transport, Chain>;
+  walletClient: WalletClient<Transport, Chain> | null;
   resolverAddress: Address | null;
 };
 
