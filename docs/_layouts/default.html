@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="{{ page.description | default: site.description }}"
+    />
+    <title>
+      {% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}
+    </title>
+    <link
+      rel="stylesheet"
+      href="{{ '/assets/css/style.css' | relative_url }}"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ '/favicon.ico' | relative_url }}"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <a
+        class="brand"
+        href="{{ '/' | relative_url }}"
+        aria-label="Rerange docs home"
+      >
+        <span class="brand-mark">♻️</span>
+        <span>RΞRANGE</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        {% for item in site.nav %}
+        <!-- prettier-ignore -->
+        <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}aria-current="page"{% endif %}>
+          {{ item.title }}
+        </a>
+        {% endfor %}
+      </nav>
+    </header>
+
+    <main class="page">{{ content }}</main>
+
+    <footer class="site-footer">
+      <span>
+        Non-custodial liquid orders for concentrated liquidity:
+        <a target="_blank" href="https://rerange.xyz">rerange.xyz</a>
+      </span>
+      <a href="{{ '/llms.txt' | relative_url }}">llms.txt</a>
+    </footer>
+  </body>
+</html>

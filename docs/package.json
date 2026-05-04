@@ -1,0 +1,10 @@
+{
+  "name": "@rerange/docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "jekyll build",
+    "serve": "jekyll serve --host 127.0.0.1 --port 4000 --livereload",
+    "clean": "jekyll clean"
+  }
+}

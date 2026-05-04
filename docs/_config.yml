@@ -1,0 +1,28 @@
+title: Rerange Docs
+description: Public protocol docs for Rerange liquid orders.
+url: ""
+baseurl: ""
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+exclude:
+  - README.local.md
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+nav:
+  - title: Users
+    url: /users/
+  - title: Devs
+    url: /developers/
+  - title: Agents
+    url: /agents/
+  - title: Contracts
+    url: /contracts/
+  - title: Deployments
+    url: /deployments/
