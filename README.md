@@ -4,7 +4,7 @@ RΞRANGE is a liquid order protocol built around concentrated liquidity. Users p
 
 ## What is here
 
-- [docs.rerange.xyz](http://docs.rerange.xyz/): public documentation on github pages
+- [docs.rerange.xyz](https://docs.rerange.xyz/): public documentation on github pages
 - [protocol](./protocol): public protocol package with ABI files, public Solidity interfaces, deployment manifests, and fork-based validation tests
 - [sdk](./sdk): generated Wagmi-based SDK for app integrations
 
