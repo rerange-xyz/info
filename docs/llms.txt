@@ -10,6 +10,8 @@ Start here:
 - Agent and resolver guide: /agents/
 - Contract reference: /contracts/
 - Deployments: /deployments/
+- Agent skills catalog: https://github.com/rerange-xyz/info/blob/main/skills/README.md
+- Agent skills manifest: https://github.com/rerange-xyz/info/blob/main/skills/manifest.json
 
 Key facts:
 
@@ -25,5 +27,15 @@ Key facts:
 - Main preview read for automation: `RerangeHub.previewRerange(bytes32 orderKey)`.
 - Resolver rewards come only from target-asset fees.
 - Referrer and treasury rewards come only from non-target-asset fees.
-- Public deployments: Ethereum chain `1`, Base chain `8453`.
-- Public hub address on both chains: `0x8880b95E1a056d537FA7469D1a26C3875e85f0e7`.
+- Public deployments and addresses are canonical in https://github.com/rerange-xyz/info/tree/main/protocol/deployments.
+- Generated ABIs are canonical in https://github.com/rerange-xyz/info/tree/main/protocol/abi.
+
+Agent skills:
+
+- Use protocol-discovery before other Rerange actions: https://github.com/rerange-xyz/info/blob/main/skills/protocol-discovery.md
+- Use intent-order-builder to construct and preview new orders: https://github.com/rerange-xyz/info/blob/main/skills/intent-order-builder.md
+- Use order-monitor for live state, progress, fees, lifecycle, and event reconciliation: https://github.com/rerange-xyz/info/blob/main/skills/order-monitor.md
+- Use resolver-rerange for permissionless maintenance and batch execution: https://github.com/rerange-xyz/info/blob/main/skills/resolver-rerange.md
+- Use vault-manager only for owner-authorized vault, delegation, close, and withdrawal workflows: https://github.com/rerange-xyz/info/blob/main/skills/vault-manager.md
+- Use strategy-composer for DCA, grid, passive exit, rebalance, and treasury plans: https://github.com/rerange-xyz/info/blob/main/skills/strategy-composer.md
+- Use safety-risk as mandatory preflight before opens, reranges, closes, or composed strategies: https://github.com/rerange-xyz/info/blob/main/skills/safety-risk.md

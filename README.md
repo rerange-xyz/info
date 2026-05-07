@@ -7,6 +7,9 @@ RΞRANGE is a liquid order protocol built around concentrated liquidity. Users p
 - [docs.rerange.xyz](https://docs.rerange.xyz/): public documentation on github pages
 - [protocol](./protocol): public protocol package with ABI files, public Solidity interfaces, deployment manifests, and fork-based validation tests
 - [sdk](./sdk): generated Wagmi-based SDK for app integrations
+- [skills](./skills): public agent skills for discovery, intent construction,
+  monitoring, resolver execution, vault management, strategy composition, and
+  safety checks
 
 ## Onchain integration
 
@@ -124,3 +127,22 @@ console.log({ hash });
 ```
 
 Approve the hub for the source token before calling `open()`, or pre-fund the resolved vault. You can find more examples in [protocol tests](./protocol/test/RerangeProtocol.ts).
+
+## Agent skills
+
+Agents should use the public skills before constructing prompts, tools, or
+autonomous loops around Rerange:
+
+- [Skills catalog](./skills/README.md)
+- [Skills manifest](./skills/manifest.json)
+- [Protocol discovery](./skills/protocol-discovery.md)
+- [Intent order builder](./skills/intent-order-builder.md)
+- [Order monitor](./skills/order-monitor.md)
+- [Resolver rerange](./skills/resolver-rerange.md)
+- [Vault manager](./skills/vault-manager.md)
+- [Strategy composer](./skills/strategy-composer.md)
+- [Safety and risk](./skills/safety-risk.md)
+
+Use the skills as the agent-facing source of truth for intent construction,
+continuous monitoring, permissionless maintenance, owner-authorized vault
+workflows, strategy planning, and mandatory preflight checks.

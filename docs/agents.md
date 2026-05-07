@@ -10,6 +10,27 @@ Rerange agents monitor orders and call permissionless maintenance functions. The
 
 Resolvers do not need vault ownership. They are paid from target-asset fees when a rerange closes or advances an order under the protocol's settlement rules.
 
+## Agent Skills
+
+Public Rerange skills are available for agents that need structured operating
+guidance beyond this resolver quickstart:
+
+- [Skills catalog](https://github.com/rerange-xyz/info/blob/main/skills/README.md)
+- [Skills manifest](https://github.com/rerange-xyz/info/blob/main/skills/manifest.json)
+- [Protocol discovery](https://github.com/rerange-xyz/info/blob/main/skills/protocol-discovery.md)
+- [Intent order builder](https://github.com/rerange-xyz/info/blob/main/skills/intent-order-builder.md)
+- [Order monitor](https://github.com/rerange-xyz/info/blob/main/skills/order-monitor.md)
+- [Resolver rerange](https://github.com/rerange-xyz/info/blob/main/skills/resolver-rerange.md)
+- [Vault manager](https://github.com/rerange-xyz/info/blob/main/skills/vault-manager.md)
+- [Strategy composer](https://github.com/rerange-xyz/info/blob/main/skills/strategy-composer.md)
+- [Safety and risk](https://github.com/rerange-xyz/info/blob/main/skills/safety-risk.md)
+
+Use the skills as the agent-facing source of truth for intent construction,
+monitoring state, resolver execution, vault delegation, strategy composition,
+and preflight safety. Use the canonical deployment manifests instead of copying
+addresses into prompts or agent memory:
+[protocol/deployments](https://github.com/rerange-xyz/info/tree/main/protocol/deployments).
+
 ## What To Monitor
 
 For each known order:
