@@ -135,6 +135,7 @@ autonomous loops around Rerange:
 
 - [Skills catalog](./skills/README.md)
 - [Skills manifest](./skills/manifest.json)
+- [SKILL.md](./skills/SKILL.md)
 - [Protocol discovery](./skills/protocol-discovery.md)
 - [Intent order builder](./skills/intent-order-builder.md)
 - [Order monitor](./skills/order-monitor.md)

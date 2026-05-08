@@ -32,6 +32,10 @@ The protocol surface is built around:
 | [`strategy-composer`](https://github.com/rerange-xyz/info/blob/main/skills/strategy-composer.md) | Compose DCA, grid, passive exit, and allocation changes from multiple Rerange orders. | Portfolio agents |
 | [`safety-risk`](https://github.com/rerange-xyz/info/blob/main/skills/safety-risk.md) | Apply mandatory checks before opening, reranging, closing, or composing strategies. | All agents |
 
+## SKILL.md
+
+https://github.com/rerange-xyz/info/blob/main/skills/SKILL.md
+
 ## Shared Rules
 
 - Use `getOrderState(orderKey)` as the canonical order state read.

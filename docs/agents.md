@@ -17,6 +17,7 @@ guidance beyond this resolver quickstart:
 
 - [Skills catalog](https://github.com/rerange-xyz/info/blob/main/skills/README.md)
 - [Skills manifest](https://github.com/rerange-xyz/info/blob/main/skills/manifest.json)
+- [SKILL.md](https://github.com/rerange-xyz/info/blob/main/skills/SKILL.md)
 - [Protocol discovery](https://github.com/rerange-xyz/info/blob/main/skills/protocol-discovery.md)
 - [Intent order builder](https://github.com/rerange-xyz/info/blob/main/skills/intent-order-builder.md)
 - [Order monitor](https://github.com/rerange-xyz/info/blob/main/skills/order-monitor.md)
