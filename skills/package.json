@@ -16,7 +16,7 @@
     "check": "node ./index.js deployments"
   },
   "dependencies": {
-    "@rerange/wagmi": "^0.0.8",
+    "@rerange/wagmi": "0.0.9",
     "viem": "^2.47.0"
   },
   "keywords": [
