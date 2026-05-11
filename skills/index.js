@@ -44,7 +44,7 @@ function usage(exitCode = 0) {
     "Examples:",
     "  node index.js deployments 8453",
     "  node index.js encode hub getOrderState '[\"0x...\"]'",
-    "  node index.js read 8453 hub 0x8880b95E1a056d537FA7469D1a26C3875e85f0e7 hubConfig '[]' https://mainnet.base.org",
+    "  node index.js read 8453 hub 0x888956E46d2af8F6B2890a39E55542219F4bd192 hubConfig '[]' https://mainnet.base.org",
   ].join("\n")
 
   const stream = exitCode === 0 ? process.stdout : process.stderr

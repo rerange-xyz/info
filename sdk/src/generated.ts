@@ -10,8 +10,8 @@ import {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const rerangeHubAbi = [
   {
@@ -2315,17 +2315,17 @@ export const rerangeHubAbi = [
 ] as const
 
 /**
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const rerangeHubAddress = {
-  1: '0x8880b95E1a056d537FA7469D1a26C3875e85f0e7',
-  8453: '0x8880b95E1a056d537FA7469D1a26C3875e85f0e7',
+  1: '0x888956E46d2af8F6B2890a39E55542219F4bd192',
+  8453: '0x888956E46d2af8F6B2890a39E55542219F4bd192',
 } as const
 
 /**
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const rerangeHubConfig = {
   address: rerangeHubAddress,
@@ -2713,8 +2713,8 @@ export const rerangeVaultAbi = [
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHub = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2724,8 +2724,8 @@ export const readRerangeHub = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"adapters"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubAdapters = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2736,8 +2736,8 @@ export const readRerangeHubAdapters = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"getOrder"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubGetOrder = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2748,8 +2748,8 @@ export const readRerangeHubGetOrder = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"getOrderByIndex"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubGetOrderByIndex = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2760,8 +2760,8 @@ export const readRerangeHubGetOrderByIndex = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"getOrderKey"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubGetOrderKey = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2772,8 +2772,8 @@ export const readRerangeHubGetOrderKey = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"getOrderState"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubGetOrderState = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2784,8 +2784,8 @@ export const readRerangeHubGetOrderState = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"hubConfig"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubConfig = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2796,8 +2796,8 @@ export const readRerangeHubConfig = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"isOrderClosed"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubIsOrderClosed = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2808,8 +2808,8 @@ export const readRerangeHubIsOrderClosed = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"orders"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubOrders = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2820,8 +2820,8 @@ export const readRerangeHubOrders = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"owner"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubOwner = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2832,8 +2832,8 @@ export const readRerangeHubOwner = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"predictVault"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubPredictVault = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2844,8 +2844,8 @@ export const readRerangeHubPredictVault = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"previewClose"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubPreviewClose = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2856,8 +2856,8 @@ export const readRerangeHubPreviewClose = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"previewOpen"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubPreviewOpen = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2868,8 +2868,8 @@ export const readRerangeHubPreviewOpen = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"previewRerange"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubPreviewRerange = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2880,8 +2880,8 @@ export const readRerangeHubPreviewRerange = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"vaultImplementation"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubVaultImplementation =
   /*#__PURE__*/ createReadContract({
@@ -2893,8 +2893,8 @@ export const readRerangeHubVaultImplementation =
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"vaultOrderCount"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubVaultOrderCount = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2905,8 +2905,8 @@ export const readRerangeHubVaultOrderCount = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link readContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"vaults"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const readRerangeHubVaults = /*#__PURE__*/ createReadContract({
   abi: rerangeHubAbi,
@@ -2917,8 +2917,8 @@ export const readRerangeHubVaults = /*#__PURE__*/ createReadContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHub = /*#__PURE__*/ createWriteContract({
   abi: rerangeHubAbi,
@@ -2928,8 +2928,8 @@ export const writeRerangeHub = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"batchRerange"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubBatchRerange = /*#__PURE__*/ createWriteContract({
   abi: rerangeHubAbi,
@@ -2940,8 +2940,8 @@ export const writeRerangeHubBatchRerange = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"close"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubClose = /*#__PURE__*/ createWriteContract({
   abi: rerangeHubAbi,
@@ -2952,8 +2952,8 @@ export const writeRerangeHubClose = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"createVault"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubCreateVault = /*#__PURE__*/ createWriteContract({
   abi: rerangeHubAbi,
@@ -2964,8 +2964,8 @@ export const writeRerangeHubCreateVault = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"multicall"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubMulticall = /*#__PURE__*/ createWriteContract({
   abi: rerangeHubAbi,
@@ -2976,8 +2976,8 @@ export const writeRerangeHubMulticall = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"open"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubOpen = /*#__PURE__*/ createWriteContract({
   abi: rerangeHubAbi,
@@ -2988,8 +2988,8 @@ export const writeRerangeHubOpen = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"open2"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubOpen2 = /*#__PURE__*/ createWriteContract({
   abi: rerangeHubAbi,
@@ -3000,8 +3000,8 @@ export const writeRerangeHubOpen2 = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"rerange"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubRerange = /*#__PURE__*/ createWriteContract({
   abi: rerangeHubAbi,
@@ -3012,8 +3012,8 @@ export const writeRerangeHubRerange = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"setAdapterAllowed"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubSetAdapterAllowed =
   /*#__PURE__*/ createWriteContract({
@@ -3025,8 +3025,8 @@ export const writeRerangeHubSetAdapterAllowed =
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"setConfig"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubSetConfig = /*#__PURE__*/ createWriteContract({
   abi: rerangeHubAbi,
@@ -3037,8 +3037,8 @@ export const writeRerangeHubSetConfig = /*#__PURE__*/ createWriteContract({
 /**
  * Wraps __{@link writeContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"transferOwnership"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const writeRerangeHubTransferOwnership =
   /*#__PURE__*/ createWriteContract({
@@ -3050,8 +3050,8 @@ export const writeRerangeHubTransferOwnership =
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHub = /*#__PURE__*/ createSimulateContract({
   abi: rerangeHubAbi,
@@ -3061,8 +3061,8 @@ export const simulateRerangeHub = /*#__PURE__*/ createSimulateContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"batchRerange"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubBatchRerange =
   /*#__PURE__*/ createSimulateContract({
@@ -3074,8 +3074,8 @@ export const simulateRerangeHubBatchRerange =
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"close"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubClose = /*#__PURE__*/ createSimulateContract({
   abi: rerangeHubAbi,
@@ -3086,8 +3086,8 @@ export const simulateRerangeHubClose = /*#__PURE__*/ createSimulateContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"createVault"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubCreateVault =
   /*#__PURE__*/ createSimulateContract({
@@ -3099,8 +3099,8 @@ export const simulateRerangeHubCreateVault =
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"multicall"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubMulticall = /*#__PURE__*/ createSimulateContract(
   { abi: rerangeHubAbi, address: rerangeHubAddress, functionName: 'multicall' },
@@ -3109,8 +3109,8 @@ export const simulateRerangeHubMulticall = /*#__PURE__*/ createSimulateContract(
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"open"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubOpen = /*#__PURE__*/ createSimulateContract({
   abi: rerangeHubAbi,
@@ -3121,8 +3121,8 @@ export const simulateRerangeHubOpen = /*#__PURE__*/ createSimulateContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"open2"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubOpen2 = /*#__PURE__*/ createSimulateContract({
   abi: rerangeHubAbi,
@@ -3133,8 +3133,8 @@ export const simulateRerangeHubOpen2 = /*#__PURE__*/ createSimulateContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"rerange"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubRerange = /*#__PURE__*/ createSimulateContract({
   abi: rerangeHubAbi,
@@ -3145,8 +3145,8 @@ export const simulateRerangeHubRerange = /*#__PURE__*/ createSimulateContract({
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"setAdapterAllowed"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubSetAdapterAllowed =
   /*#__PURE__*/ createSimulateContract({
@@ -3158,8 +3158,8 @@ export const simulateRerangeHubSetAdapterAllowed =
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"setConfig"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubSetConfig = /*#__PURE__*/ createSimulateContract(
   { abi: rerangeHubAbi, address: rerangeHubAddress, functionName: 'setConfig' },
@@ -3168,8 +3168,8 @@ export const simulateRerangeHubSetConfig = /*#__PURE__*/ createSimulateContract(
 /**
  * Wraps __{@link simulateContract}__ with `abi` set to __{@link rerangeHubAbi}__ and `functionName` set to `"transferOwnership"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const simulateRerangeHubTransferOwnership =
   /*#__PURE__*/ createSimulateContract({
@@ -3181,8 +3181,8 @@ export const simulateRerangeHubTransferOwnership =
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link rerangeHubAbi}__
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const watchRerangeHubEvent = /*#__PURE__*/ createWatchContractEvent({
   abi: rerangeHubAbi,
@@ -3192,8 +3192,8 @@ export const watchRerangeHubEvent = /*#__PURE__*/ createWatchContractEvent({
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link rerangeHubAbi}__ and `eventName` set to `"AdapterAllowedUpdated"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const watchRerangeHubAdapterAllowedUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3205,8 +3205,8 @@ export const watchRerangeHubAdapterAllowedUpdatedEvent =
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link rerangeHubAbi}__ and `eventName` set to `"HubConfigUpdated"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const watchRerangeHubConfigUpdatedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3218,8 +3218,8 @@ export const watchRerangeHubConfigUpdatedEvent =
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link rerangeHubAbi}__ and `eventName` set to `"OrderClosed"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const watchRerangeHubOrderClosedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3231,8 +3231,8 @@ export const watchRerangeHubOrderClosedEvent =
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link rerangeHubAbi}__ and `eventName` set to `"OrderOpened"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const watchRerangeHubOrderOpenedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3244,8 +3244,8 @@ export const watchRerangeHubOrderOpenedEvent =
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link rerangeHubAbi}__ and `eventName` set to `"OrderReranged"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const watchRerangeHubOrderRerangedEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3257,8 +3257,8 @@ export const watchRerangeHubOrderRerangedEvent =
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link rerangeHubAbi}__ and `eventName` set to `"OwnershipTransferred"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const watchRerangeHubOwnershipTransferredEvent =
   /*#__PURE__*/ createWatchContractEvent({
@@ -3270,8 +3270,8 @@ export const watchRerangeHubOwnershipTransferredEvent =
 /**
  * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link rerangeHubAbi}__ and `eventName` set to `"VaultCreated"`
  *
- * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
- * - [__View Contract on Base Basescan__](https://basescan.org/address/0x8880b95E1a056d537FA7469D1a26C3875e85f0e7)
+ * - [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
+ * - [__View Contract on Base Basescan__](https://basescan.org/address/0x888956E46d2af8F6B2890a39E55542219F4bd192)
  */
 export const watchRerangeHubVaultCreatedEvent =
   /*#__PURE__*/ createWatchContractEvent({

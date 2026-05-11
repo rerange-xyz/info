@@ -4,8 +4,8 @@
   "network": "ethereum",
   "deployer": "0xceb9d7cbfb6252c59ae6c3582bdcb5b7a2e6c29e",
   "owner": "0xfE17AFdDA83C669D9131B3fB201FB828Ccd9663a",
-  "create2Salt": "0x03d0d91364c3d589a574b0e20959c2a0bf8bdb724d5a0ab7c5257e7cbc4b29f8",
-  "create2GuardedSalt": "0x422c74428de23c7deeaf540599376a1d193445d52b2bd385c6f4c535b491d4b1",
+  "create2Salt": "0xb060ea15bdc71d44199d1cddd03c635f91749ca401040b8a5a2e40895e364bec",
+  "create2GuardedSalt": "0x181f70632ffc5c85264f13e8e3e92a712933038aba6fecb4d225d120dd225901",
   "permit2": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
   "treasury": "0xfE17AFdDA83C669D9131B3fB201FB828Ccd9663a",
   "weth": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -20,8 +20,8 @@
   "contracts": {
     "uniswapV3Adapter": "0xef1d500cba25cb3fc571fa2a2b01dc0004ca2423",
     "uniswapV4Adapter": "0x122a3370ff12625bef260145d9eb69a66bcc6a09",
-    "rerangeHubEngine": "0x42fD58983Ff351b73e4b6d7447324F578dcae98A",
-    "rerangeHubViews": "0xbB33656af5704140CC276E2aE44208D88d3633a1",
-    "rerangeHub": "0x8880b95E1a056d537FA7469D1a26C3875e85f0e7"
+    "rerangeHubEngine": "0x20F0afdb1AE2aA3348DA9B92dA4D7278e9FC4b35",
+    "rerangeHubViews": "0x9C72BeD26431400dE20bC4c2fC6691C11C329735",
+    "rerangeHub": "0x888956E46d2af8F6B2890a39E55542219F4bd192"
   }
 }

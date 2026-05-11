@@ -1,6 +1,6 @@
 {
   "name": "@rerange/skill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AgentSkill for Rerange liquid orders using @rerange/wagmi.",
   "type": "module",
   "bin": {

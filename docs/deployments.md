@@ -13,9 +13,9 @@ Public deployment manifests are included in [`protocol/deployments`](https://git
 | Item                 | Address / value                              |
 | -------------------- | -------------------------------------------- |
 | Chain ID             | `1`                                          |
-| Hub                  | `0x8880b95E1a056d537FA7469D1a26C3875e85f0e7` |
-| Hub views            | `0xbB33656af5704140CC276E2aE44208D88d3633a1` |
-| Hub engine           | `0x42fD58983Ff351b73e4b6d7447324F578dcae98A` |
+| Hub                  | `0x888956E46d2af8F6B2890a39E55542219F4bd192` |
+| Hub views            | `0x9C72BeD26431400dE20bC4c2fC6691C11C329735` |
+| Hub engine           | `0x20F0afdb1AE2aA3348DA9B92dA4D7278e9FC4b35` |
 | Uniswap v3 adapter   | `0xef1d500cba25cb3fc571fa2a2b01dc0004ca2423` |
 | Uniswap v4 adapter   | `0x122a3370ff12625bef260145d9eb69a66bcc6a09` |
 | Permit2              | `0x000000000022D473030F116dDEE9F6B43aC78BA3` |
@@ -31,9 +31,9 @@ Public deployment manifests are included in [`protocol/deployments`](https://git
 | Item                 | Address / value                              |
 | -------------------- | -------------------------------------------- |
 | Chain ID             | `8453`                                       |
-| Hub                  | `0x8880b95E1a056d537FA7469D1a26C3875e85f0e7` |
-| Hub views            | `0xbB33656af5704140CC276E2aE44208D88d3633a1` |
-| Hub engine           | `0x42fD58983Ff351b73e4b6d7447324F578dcae98A` |
+| Hub                  | `0x888956E46d2af8F6B2890a39E55542219F4bd192` |
+| Hub views            | `0x9C72BeD26431400dE20bC4c2fC6691C11C329735` |
+| Hub engine           | `0x20F0afdb1AE2aA3348DA9B92dA4D7278e9FC4b35` |
 | Uniswap v3 adapter   | `0xb1a9889b022ea4f9a6d96f204ad807e2206aa7f0` |
 | Uniswap v4 adapter   | `0xc573f3a7ef72bd7a96a0e17c01fae9d340437113` |
 | Permit2              | `0x000000000022D473030F116dDEE9F6B43aC78BA3` |

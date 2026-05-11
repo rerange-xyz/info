@@ -49,7 +49,7 @@ node {baseDir}/index.js deployments
 node {baseDir}/index.js deployments 8453
 node {baseDir}/index.js abi hub
 node {baseDir}/index.js encode hub getOrderState '["0x...orderKey"]'
-node {baseDir}/index.js read 8453 hub 0x8880b95E1a056d537FA7469D1a26C3875e85f0e7 hubConfig '[]' https://mainnet.base.org
+node {baseDir}/index.js read 8453 hub 0x888956E46d2af8F6B2890a39E55542219F4bd192 hubConfig '[]' https://mainnet.base.org
 ```
 
 The helper never signs transactions and never asks for private keys. For writes,
