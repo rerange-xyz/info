@@ -2468,6 +2468,78 @@ describe("RerangeProtocol", async () => {
     assert.ok(aliceEthAfterClose > aliceEthBeforeClose);
   });
 
+  it("allows an agent to close when the idle liquidity was already in-use from the vault", async () => {
+    const vault = await createVault(fixture.alice);
+    const vaultContract = await fixture.viem.getContractAt(
+      "RerangeVault",
+      vault,
+    );
+    const capital = INITIAL_CAPITAL;
+    const dustAmount =
+      (capital * BigInt(HUB_COMPLETION_THRESHOLD_BPS)) / 20_000n;
+
+    await waitFor(
+      vaultContract.write.setAgent(
+        [fixture.agent.account.address, await futureTimestamp()],
+        {
+          account: fixture.alice.account,
+        },
+      ),
+    );
+
+    await fundVaultWithWeth(fixture.alice, vault, capital + dustAmount);
+    const openTick = await currentTick();
+    const targetTick = openTick - V3_TICK_SPACING * 12;
+    await openBuyOrder(
+      vault,
+      targetTick,
+      fixture.alice,
+      capital,
+      false,
+      V3_TICK_SPACING * 10,
+    );
+
+    const orderKey = await getVaultOrderKey(vault, 0n);
+    const orderStateSlot = orderStateBaseSlot(orderKey);
+    const adapterDataBaseSlot = orderAdapterDataBaseSlot(orderKey);
+
+    await setStorageAt(
+      fixture.hub.address,
+      addStorageOffset(orderStateSlot, 3n),
+      toStorageWord(dustAmount),
+    );
+    await setStorageAt(
+      fixture.hub.address,
+      addStorageOffset(adapterDataBaseSlot, 6n),
+      toStorageWord(0n),
+    );
+
+    const vaultWethBefore = await fixture.token1.read.balanceOf([vault]);
+    if (vaultWethBefore > 0n) {
+      await waitFor(
+        vaultContract.write.withdraw(
+          [
+            fixture.token1.address,
+            fixture.alice.account.address,
+            vaultWethBefore,
+          ],
+          {
+            account: fixture.alice.account,
+          },
+        ),
+      );
+    }
+
+    await closeOrder(orderKey, fixture.agent);
+
+    const order: any = await fixture.hub.read.getOrder([orderKey]);
+    const vaultWethAfterClose = await fixture.token1.read.balanceOf([vault]);
+
+    assert.equal(order.closed, true);
+    assert.equal(order.idle1, 0n);
+    assert.equal(vaultWethAfterClose, 0n);
+  });
+
   it("previews rerange and close actions for an active order", async () => {
     const vault = await createVault(fixture.alice);
     const targetTick = (await currentTick()) - V3_TICK_SPACING * 10;
