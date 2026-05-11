@@ -1,6 +1,6 @@
 {
   "name": "rerange-agent-skills",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "protocol": "Rerange",
   "category": "non_custodial_liquidity_execution",
   "deployments": "https://github.com/rerange-xyz/info/tree/main/protocol/deployments",
