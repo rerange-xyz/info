@@ -25,7 +25,7 @@ const DEFAULT_RPC_URLS: Record<SupportedChainKey, string[]> = {
   ethereum: [
     "https://ethereum-rpc.publicnode.com",
     "https://eth.llamarpc.com",
-    "https://eth.drpc.org",
+    "https://gateway.tenderly.co/public/mainnet",
   ],
   base: [
     "https://mainnet.base.org",
