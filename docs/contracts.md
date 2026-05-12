@@ -121,6 +121,7 @@ struct OrderStateView {
 ## Source Links
 
 - [Solidity interfaces](https://github.com/rerange-xyz/info/tree/main/protocol/interfaces)
+- [Rerange libraries](https://github.com/rerange-xyz/info/tree/main/protocol/libraries)
 - [ABI files](https://github.com/rerange-xyz/info/tree/main/protocol/abi)
 - [Deployment manifests](https://github.com/rerange-xyz/info/tree/main/protocol/deployments)
 - [Wagmi SDK source](https://github.com/rerange-xyz/info/tree/main/sdk)
