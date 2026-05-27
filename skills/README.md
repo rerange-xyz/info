@@ -31,10 +31,18 @@ The protocol surface is built around:
 | [`vault-manager`](https://github.com/rerange-xyz/info/blob/main/skills/vault-manager.md) | Manage vault creation, manager delegation, owner-authorized close, and balance policy. | Wallet and treasury agents |
 | [`strategy-composer`](https://github.com/rerange-xyz/info/blob/main/skills/strategy-composer.md) | Compose DCA, grid, passive exit, and allocation changes from multiple Rerange orders. | Portfolio agents |
 | [`safety-risk`](https://github.com/rerange-xyz/info/blob/main/skills/safety-risk.md) | Apply mandatory checks before opening, reranging, closing, or composing strategies. | All agents |
+| [`base-plugin`](https://github.com/rerange-xyz/info/blob/main/skills/base-plugin.md) | Prepare unsigned Rerange calldata through the local CLI and execute it with Base MCP `send_calls`. | Base AI agents |
 
 ## SKILL.md
 
 https://github.com/rerange-xyz/info/blob/main/skills/SKILL.md
+
+## Base Plugin
+
+[`base-plugin.md`](https://github.com/rerange-xyz/info/blob/main/skills/base-plugin.md)
+adapts Rerange skills to Base AI custom plugins. It requires the Base MCP
+onboarding flow, resolves canonical deployments through the local CLI, encodes
+unsigned hub or vault calldata, and maps the result into Base MCP `send_calls`.
 
 ## Shared Rules
 
