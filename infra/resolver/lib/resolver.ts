@@ -1,8 +1,6 @@
 import type { Abi, AbiFunction, Address, Hex } from "viem";
 import { decodeAbiParameters, encodeFunctionData, formatGwei } from "viem";
-
 import { hubAbi } from "@rerange/wagmi";
-
 import type {
   BatchSimulation,
   OrdersTableRow,
@@ -15,7 +13,6 @@ import type {
   ResolverConfig,
   StoredOrderState,
 } from "../types.js";
-
 import {
   decodePoolAddressFromAdapterData,
   resolveAdapterKind,
@@ -671,7 +668,7 @@ export async function runResolverOnce(config: ResolverConfig) {
       (total, reward) => total + reward.rewardEthWei,
       0n,
     );
-    const gasCostWei = gasEstimate * gasPriceWei;
+    const gasCostWei = 2n * gasEstimate * gasPriceWei;
     const profitWei = totalRewardWei - gasCostWei;
 
     console.log(

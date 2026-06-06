@@ -4,18 +4,12 @@ import type { OrdersTableRow, PoolsTableRow } from "../types.js";
 import { requireEnv } from "./utils.js";
 
 function resolveSupabaseUrl(): string {
-  return (
-    process.env.SUPABASE_URL?.trim() ||
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ||
-    requireEnv("SUPABASE_URL")
-  );
+  return process.env.SUPABASE_URL?.trim() || requireEnv("SUPABASE_URL");
 }
 
 function resolveSupabaseKey(): string {
   return (
-    process.env.SUPABASE_SECRET_KEY?.trim() ||
-    process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() ||
-    requireEnv("SUPABASE_SECRET_KEY")
+    process.env.SUPABASE_SECRET_KEY?.trim() || requireEnv("SUPABASE_SECRET_KEY")
   );
 }
 

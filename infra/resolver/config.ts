@@ -1,16 +1,13 @@
 import { createPublicClient, createWalletClient } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { base, mainnet } from "viem/chains";
-
 import { protocolDeployments } from "@rerange/wagmi";
-
 import type {
   ProtocolDeployment,
   ResolverChainConfig,
   ResolverConfig,
   SupportedChainKey,
 } from "./types.js";
-
 import { createRpcTransport } from "./lib/rpc.js";
 import { isDryRun, requireEnv } from "./lib/utils.js";
 
