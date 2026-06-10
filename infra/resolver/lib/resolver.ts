@@ -668,7 +668,7 @@ export async function runResolverOnce(config: ResolverConfig) {
       (total, reward) => total + reward.rewardEthWei,
       0n,
     );
-    const gasCostWei = 2n * gasEstimate * gasPriceWei;
+    const gasCostWei = 8n * gasEstimate * gasPriceWei;
     const profitWei = totalRewardWei - gasCostWei;
 
     console.log(
