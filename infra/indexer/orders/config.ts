@@ -28,7 +28,7 @@ export type OrdersIndexerConfig = {
   tableName: string;
 };
 
-const DEFAULT_LOOKBACK_HOURS = 3;
+const DEFAULT_LOOKBACK_HOURS = 1;
 const DEFAULT_RETENTION_DAYS = 7;
 const DEFAULT_TABLE_NAME = "orders";
 
@@ -63,7 +63,7 @@ const SUPPORTED_CHAINS: Array<{
   {
     chainId: 8453,
     chainKey: "base",
-    averageBlockTimeSeconds: 2,
+    averageBlockTimeSeconds: 0.2,
   },
 ];
 

@@ -1,9 +1,9 @@
 {
   "name": "@rerange/resolver",
-  "private": true,
   "type": "module",
   "scripts": {
     "start": "tsx index.ts",
+    "test": "node --import tsx --experimental-test-module-mocks --test lib/test/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

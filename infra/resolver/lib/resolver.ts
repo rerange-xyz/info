@@ -1,5 +1,10 @@
 import type { Abi, AbiFunction, Address, Hex } from "viem";
-import { decodeAbiParameters, encodeFunctionData, formatGwei } from "viem";
+import {
+  decodeAbiParameters,
+  encodeFunctionData,
+  formatGwei,
+  WaitForTransactionReceiptTimeoutError,
+} from "viem";
 import { hubAbi } from "@rerange/wagmi";
 import type {
   BatchSimulation,
@@ -709,30 +714,65 @@ export async function runResolverOnce(config: ResolverConfig) {
       );
     }
 
-    const hash = await chain.walletClient.writeContract({
-      address: finalRequest.address,
-      abi: finalRequest.abi,
-      functionName: finalRequest.functionName,
-      args: finalRequest.args,
-      account: walletAccount,
-      chain: chain.walletClient.chain,
-      gas: gasEstimate,
-      ...(feeEstimate.maxFeePerGas
-        ? {
-            maxFeePerGas: feeEstimate.maxFeePerGas,
-            maxPriorityFeePerGas: feeEstimate.maxPriorityFeePerGas,
-          }
-        : { gasPrice: feeEstimate.gasPrice }),
-    });
+    const feeParameters = feeEstimate.maxFeePerGas
+      ? {
+          maxFeePerGas: feeEstimate.maxFeePerGas,
+          maxPriorityFeePerGas: feeEstimate.maxPriorityFeePerGas,
+        }
+      : { gasPrice: feeEstimate.gasPrice };
+    const transactionContext = [
+      `${chain.chainKey} (${chain.chainId})`,
+      `gas=${gasEstimate.toString()}`,
+      ...Object.entries(feeParameters).map(
+        ([key, value]) => `${key}=${value?.toString() ?? "undefined"}`,
+      ),
+    ].join(" | ");
+
+    let hash: Hex;
+    try {
+      hash = await chain.walletClient.writeContract({
+        address: finalRequest.address,
+        abi: finalRequest.abi,
+        functionName: finalRequest.functionName,
+        args: finalRequest.args,
+        account: walletAccount,
+        chain: chain.walletClient.chain,
+        gas: gasEstimate,
+        ...feeParameters,
+      });
+    } catch (error) {
+      console.warn(
+        `Transaction submission failed on ${transactionContext}: ${error instanceof Error ? error.message : String(error)}`,
+      );
+      continue;
+    }
 
     console.log(
       `Submitted ${chain.chainKey} ${finalRequest.functionName} tx ${hash}`,
     );
-    const receipt = await chain.publicClient.waitForTransactionReceipt({
-      hash,
-    });
-    console.log(
-      `Confirmed ${chain.chainKey} tx ${hash} in block ${receipt.blockNumber.toString()} using ${receipt.gasUsed.toString()} gas.`,
-    );
+    try {
+      const receipt = await chain.publicClient.waitForTransactionReceipt({
+        hash,
+        timeout: 180_000,
+      });
+      if (receipt.status === "success") {
+        console.log(
+          `Confirmed ${chain.chainKey} tx ${hash} in block ${receipt.blockNumber.toString()} using ${receipt.gasUsed.toString()} gas.`,
+        );
+      } else {
+        console.warn(
+          `Transaction reverted on ${transactionContext}: tx ${hash} in block ${receipt.blockNumber.toString()}.`,
+        );
+      }
+    } catch (error) {
+      const status =
+        error instanceof WaitForTransactionReceiptTimeoutError
+          ? "unconfirmed"
+          : "confirmation failed";
+      console.warn(
+        `Transaction ${status} on ${transactionContext}: tx ${hash}: ${error instanceof Error ? error.message : String(error)}`,
+      );
+      continue;
+    }
   }
 }

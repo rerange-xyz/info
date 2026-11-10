@@ -24,3 +24,10 @@ npm install
 cp .env.example .env
 npm run start -- --dry-run
 ```
+
+## Check
+
+```bash
+npm run typecheck
+npm test
+```

@@ -1,4 +1,11 @@
-import type { Abi, AbiEvent, Address, Hex, PublicClient } from "viem";
+import type {
+  Abi,
+  AbiEvent,
+  Address,
+  GetLogsReturnType,
+  Hex,
+  PublicClient,
+} from "viem";
 import { createPublicClient, defineChain, getAbiItem } from "viem";
 
 import type { ChainConfig } from "../config.js";
@@ -146,6 +153,32 @@ function getFromBlock(
   return latestBlock > lookbackBlocks ? latestBlock - lookbackBlocks : 0n;
 }
 
+async function fetchEventLogsInChunks(params: {
+  client: PublicClient;
+  address: Address;
+  event: AbiEvent;
+  fromBlock: bigint;
+  toBlock: bigint;
+}) {
+  const logs: GetLogsReturnType<AbiEvent> = [];
+  const chunkSize = 5_000n;
+
+  for (let fromBlock = params.fromBlock; fromBlock <= params.toBlock; ) {
+    const chunkEnd = fromBlock + chunkSize - 1n;
+    const toBlock = chunkEnd < params.toBlock ? chunkEnd : params.toBlock;
+    const chunk = await params.client.getLogs({
+      address: params.address,
+      event: params.event,
+      fromBlock,
+      toBlock,
+    });
+    logs.push(...chunk);
+    fromBlock = toBlock + 1n;
+  }
+
+  return logs;
+}
+
 function uniqueBlockNumbers(logs: Array<{ blockNumber: bigint }>) {
   return [...new Set(logs.map((log) => log.blockNumber.toString()))].map(
     (value) => BigInt(value),
@@ -209,7 +242,8 @@ async function fetchOpenedEvents(params: {
   fromBlock: bigint;
   toBlock: bigint;
 }): Promise<OrderEventRecord[]> {
-  const logs = await params.client.getLogs({
+  const logs = await fetchEventLogsInChunks({
+    client: params.client,
     address: params.chain.deployment.hubAddress,
     event: orderOpenedEventAbi,
     fromBlock: params.fromBlock,
@@ -250,7 +284,8 @@ async function fetchClosedEvents(params: {
   fromBlock: bigint;
   toBlock: bigint;
 }): Promise<OrderEventRecord[]> {
-  const logs = await params.client.getLogs({
+  const logs = await fetchEventLogsInChunks({
+    client: params.client,
     address: params.chain.deployment.hubAddress,
     event: orderClosedEventAbi,
     fromBlock: params.fromBlock,
@@ -290,7 +325,8 @@ async function fetchRerangedEvents(params: {
   fromBlock: bigint;
   toBlock: bigint;
 }): Promise<OrderEventRecord[]> {
-  const logs = await params.client.getLogs({
+  const logs = await fetchEventLogsInChunks({
+    client: params.client,
     address: params.chain.deployment.hubAddress,
     event: orderRerangedEventAbi,
     fromBlock: params.fromBlock,
