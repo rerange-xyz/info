@@ -13,6 +13,8 @@ import type { ResolverChainConfig, ResolverConfig } from "../../types.js";
 
 const address = `0x${"11".repeat(20)}` as const;
 const orderKey = `0x${"22".repeat(32)}` as const;
+const secondOrderKey = `0x${"44".repeat(32)}` as const;
+let orderKeys: Hex[] = [orderKey];
 const hash = `0x${"33".repeat(32)}` as const;
 const adapterData = encodeAbiParameters(
   parseAbiParameters(
@@ -47,14 +49,13 @@ const order = {
 
 mock.module(new URL("../supabase.ts", import.meta.url).href, {
   namedExports: {
-    fetchChainOrderRows: async () => [
-      {
-        key: orderKey,
+    fetchChainOrderRows: async () =>
+      orderKeys.map((key) => ({
+        key,
         status: "open",
         timestamp: "2026-01-01",
         data: { order: { state: { order, market: {} } } },
-      },
-    ],
+      })),
     fetchPoolRowsByAddress: async () => [
       {
         pool: address,
@@ -89,6 +90,7 @@ const preview = encodeFunctionResult({
 const { runResolverOnce } = await import("../resolver.js");
 
 beforeEach(() => {
+  orderKeys = [orderKey];
   mock.method(globalThis, "fetch", async () => {
     throw new Error("Network access is forbidden in tests");
   });
@@ -105,6 +107,16 @@ function setup(
     receiptError?: unknown;
     receiptStatus?: "success" | "reverted";
     legacyFees?: boolean;
+    partialInitialSimulation?: boolean;
+    simulationErrorAt?: number;
+    simulationError?: unknown;
+    gasEstimationError?: unknown;
+    feeEstimationError?: unknown;
+    feeEstimateOverride?: {
+      maxFeePerGas?: bigint;
+      maxPriorityFeePerGas?: bigint;
+      gasPrice?: bigint;
+    };
   } = {},
 ) {
   const logs: string[] = [];
@@ -118,6 +130,44 @@ function setup(
     ? { gasPrice: 2n }
     : { maxFeePerGas: 2n, maxPriorityFeePerGas: 1n };
   const chains = (["ethereum", "base"] as const).map((chainKey, index) => {
+    let batchSimulationCount = 0;
+    const simulateContract = t.mock.fn(
+      async (request: { functionName: string; args: [Hex[] | Hex] }) => {
+        if (request.functionName !== "batchRerange") {
+          return { result: [[true], [preview]] };
+        }
+        batchSimulationCount++;
+        if (index === 0 && batchSimulationCount === options.simulationErrorAt) {
+          throw options.simulationError;
+        }
+        const keys = request.args[0] as Hex[];
+        return {
+          result: [
+            keys.map(
+              (_, keyIndex) =>
+                !(
+                  options.partialInitialSimulation &&
+                  batchSimulationCount === 1 &&
+                  keyIndex > 0
+                ),
+            ),
+            keys.map(() => preview),
+          ],
+        };
+      },
+    );
+    const estimateContractGas = t.mock.fn(async () => {
+      if (index === 0 && options.gasEstimationError)
+        throw options.gasEstimationError;
+      return 100n;
+    });
+    const estimateFeesPerGas = t.mock.fn(async () => {
+      if (index === 0 && options.feeEstimationError)
+        throw options.feeEstimationError;
+      return index === 0
+        ? (options.feeEstimateOverride ?? feeEstimate)
+        : feeEstimate;
+    });
     const writeContract = t.mock.fn(
       async (_request: Record<string, unknown>) => {
         if (index === 0 && options.submissionError)
@@ -143,9 +193,9 @@ function setup(
       resolverAddress: address,
       publicClient: {
         multicall: async () => [{ status: "success", result: [0n, 0] }],
-        simulateContract: async () => ({ result: [[true], [preview]] }),
-        estimateContractGas: async () => 100n,
-        estimateFeesPerGas: async () => feeEstimate,
+        simulateContract,
+        estimateContractGas,
+        estimateFeesPerGas,
         waitForTransactionReceipt,
       },
       walletClient: {
@@ -167,6 +217,87 @@ function setup(
     dryRun: false,
   };
   return { chains, config, logs };
+}
+
+for (const [
+  operation,
+  expectedSimulations,
+  expectedGasEstimates,
+  expectedFeeEstimates,
+] of [
+  ["Final batch simulation", 2, 0, 0],
+  ["Pre-submission batch simulation", 2, 0, 0],
+  ["Contract gas estimation", 3, 1, 0],
+  ["Gas fee estimation", 3, 1, 1],
+  ["Unavailable gas price", 3, 1, 1],
+  ["Zero gas price", 3, 1, 1],
+] as const) {
+  test(`${operation} failure on Ethereum is logged and Base executes without retries`, async (t) => {
+    const failure = new Error(`${operation} RPC failure`);
+    if (operation === "Final batch simulation")
+      orderKeys = [orderKey, secondOrderKey];
+    const { chains, config, logs } = setup(t, {
+      partialInitialSimulation: operation === "Final batch simulation",
+      simulationErrorAt:
+        operation === "Final batch simulation" ||
+        operation === "Pre-submission batch simulation"
+          ? 2
+          : undefined,
+      simulationError: failure,
+      gasEstimationError:
+        operation === "Contract gas estimation" ? failure : undefined,
+      feeEstimationError:
+        operation === "Gas fee estimation" ? failure : undefined,
+      feeEstimateOverride:
+        operation === "Unavailable gas price"
+          ? {}
+          : operation === "Zero gas price"
+            ? { gasPrice: 0n }
+            : undefined,
+    });
+
+    await runResolverOnce(config);
+
+    const ethereum = chains[0]!;
+    const base = chains[1]!;
+    assert.equal(
+      ethereum.publicClient.simulateContract.mock.callCount(),
+      expectedSimulations,
+    );
+    assert.equal(
+      ethereum.publicClient.estimateContractGas.mock.callCount(),
+      expectedGasEstimates,
+    );
+    assert.equal(
+      ethereum.publicClient.estimateFeesPerGas.mock.callCount(),
+      expectedFeeEstimates,
+    );
+    assert.equal(ethereum.walletClient.writeContract.mock.callCount(), 0);
+    assert.equal(
+      ethereum.publicClient.waitForTransactionReceipt.mock.callCount(),
+      0,
+    );
+    assert.equal(base.walletClient.writeContract.mock.callCount(), 1);
+    assert.equal(
+      base.publicClient.waitForTransactionReceipt.mock.callCount(),
+      1,
+    );
+    assert.ok(logs.some((line) => line.startsWith("Confirmed base tx")));
+    const loggedFailure = logs.find((line) =>
+      line.includes("failed on ethereum (1)"),
+    );
+    assert.ok(loggedFailure);
+    const missingPrice =
+      operation === "Unavailable gas price" || operation === "Zero gas price";
+    assert.ok(
+      loggedFailure.includes(missingPrice ? "Gas fee estimation" : operation),
+    );
+    assert.ok(
+      loggedFailure.includes(
+        missingPrice ? "gas price is unavailable" : failure.message,
+      ),
+    );
+  });
 }
 
 for (const scenario of [
@@ -236,5 +367,24 @@ test("missing wallet configuration remains fatal", async (t) => {
   const { config, chains } = setup(t);
   config.chains[0]!.walletClient = null;
   await assert.rejects(runResolverOnce(config), /Wallet client is required/);
+  assert.equal(chains[1]!.walletClient.writeContract.mock.callCount(), 0);
+});
+
+test("missing wallet account remains fatal", async (t) => {
+  const { config, chains } = setup(t);
+  config.chains[0]!.walletClient!.account = undefined;
+  await assert.rejects(runResolverOnce(config), /Wallet account is required/);
+  assert.equal(chains[0]!.walletClient.writeContract.mock.callCount(), 0);
+  assert.equal(chains[1]!.walletClient.writeContract.mock.callCount(), 0);
+});
+
+test("missing resolver address remains fatal before simulation", async (t) => {
+  const { config, chains } = setup(t);
+  config.chains[0]!.resolverAddress = null;
+  await assert.rejects(
+    runResolverOnce(config),
+    /Resolver private key is required/,
+  );
+  assert.equal(chains[0]!.publicClient.simulateContract.mock.callCount(), 0);
   assert.equal(chains[1]!.walletClient.writeContract.mock.callCount(), 0);
 });

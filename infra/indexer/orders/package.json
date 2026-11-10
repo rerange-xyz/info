@@ -1,5 +1,6 @@
 {
   "name": "@rerange/orders-indexer",
+  "private": true,
   "type": "module",
   "scripts": {
     "start": "tsx index.ts",
