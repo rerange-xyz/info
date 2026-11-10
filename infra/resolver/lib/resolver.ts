@@ -1,5 +1,10 @@
 import type { Abi, AbiFunction, Address, Hex } from "viem";
-import { decodeAbiParameters, encodeFunctionData, formatGwei } from "viem";
+import {
+  decodeAbiParameters,
+  encodeFunctionData,
+  formatGwei,
+  WaitForTransactionReceiptTimeoutError,
+} from "viem";
 import { hubAbi } from "@rerange/wagmi";
 import type {
   BatchSimulation,
@@ -561,6 +566,12 @@ export async function runResolverOnce(config: ResolverConfig) {
       `Selected ${candidates.length} candidates for ${chain.chainKey}: ${summarizeCandidates(candidates)}`,
     );
 
+    if (!chain.resolverAddress) {
+      throw new Error(
+        `Resolver private key is required for chain ${chain.chainId}`,
+      );
+    }
+
     let initialSimulation: BatchSimulation;
     try {
       initialSimulation = await simulateBatch(chain, candidates);
@@ -583,10 +594,18 @@ export async function runResolverOnce(config: ResolverConfig) {
       continue;
     }
 
-    const finalSimulation =
-      successfulCandidates.length === candidates.length
-        ? initialSimulation
-        : await simulateBatch(chain, successfulCandidates);
+    let finalSimulation: BatchSimulation;
+    try {
+      finalSimulation =
+        successfulCandidates.length === candidates.length
+          ? initialSimulation
+          : await simulateBatch(chain, successfulCandidates);
+    } catch (error) {
+      console.warn(
+        `Final batch simulation failed on ${chain.chainKey} (${chain.chainId}): ${error instanceof Error ? error.message : String(error)}`,
+      );
+      continue;
+    }
 
     const profitableRewards = finalSimulation.decodedRewards.filter(
       (reward) => reward.rewardEthWei > 0n,
@@ -604,10 +623,15 @@ export async function runResolverOnce(config: ResolverConfig) {
     const profitableCandidates = successfulCandidates.filter((candidate) =>
       profitableOrderKeySet.has(candidate.orderKey.toLowerCase()),
     );
-    const submissionSimulation = await simulateBatch(
-      chain,
-      profitableCandidates,
-    );
+    let submissionSimulation: BatchSimulation;
+    try {
+      submissionSimulation = await simulateBatch(chain, profitableCandidates);
+    } catch (error) {
+      console.warn(
+        `Pre-submission batch simulation failed on ${chain.chainKey} (${chain.chainId}): ${error instanceof Error ? error.message : String(error)}`,
+      );
+      continue;
+    }
     const failedSubmissionOrderKeys =
       summarizeFailedOrderKeys(submissionSimulation);
     if (failedSubmissionOrderKeys.length > 0) {
@@ -651,17 +675,37 @@ export async function runResolverOnce(config: ResolverConfig) {
       args: executionCall.args,
       account: chain.resolverAddress as Address,
     };
-    const gasEstimate = await estimateFinalExecutionGas({
-      chain,
-      executionCall,
-      finalOrderKeys,
-    });
-    const feeEstimate = await chain.publicClient.estimateFeesPerGas();
+    let gasEstimate: bigint;
+    try {
+      gasEstimate = await estimateFinalExecutionGas({
+        chain,
+        executionCall,
+        finalOrderKeys,
+      });
+    } catch (error) {
+      console.warn(
+        `Contract gas estimation failed on ${chain.chainKey} (${chain.chainId}): ${error instanceof Error ? error.message : String(error)}`,
+      );
+      continue;
+    }
+
+    let feeEstimate: Awaited<
+      ReturnType<typeof chain.publicClient.estimateFeesPerGas>
+    >;
+    try {
+      feeEstimate = await chain.publicClient.estimateFeesPerGas();
+    } catch (error) {
+      console.warn(
+        `Gas fee estimation failed on ${chain.chainKey} (${chain.chainId}): ${error instanceof Error ? error.message : String(error)}`,
+      );
+      continue;
+    }
     const gasPriceWei = feeEstimate.maxFeePerGas ?? feeEstimate.gasPrice;
     if (!gasPriceWei) {
-      throw new Error(
-        `Unable to estimate gas price for chain ${chain.chainId}`,
+      console.warn(
+        `Gas fee estimation failed on ${chain.chainKey} (${chain.chainId}): gas price is unavailable.`,
       );
+      continue;
     }
 
     const totalRewardWei = submissionRewards.reduce(
@@ -709,30 +753,65 @@ export async function runResolverOnce(config: ResolverConfig) {
       );
     }
 
-    const hash = await chain.walletClient.writeContract({
-      address: finalRequest.address,
-      abi: finalRequest.abi,
-      functionName: finalRequest.functionName,
-      args: finalRequest.args,
-      account: walletAccount,
-      chain: chain.walletClient.chain,
-      gas: gasEstimate,
-      ...(feeEstimate.maxFeePerGas
-        ? {
-            maxFeePerGas: feeEstimate.maxFeePerGas,
-            maxPriorityFeePerGas: feeEstimate.maxPriorityFeePerGas,
-          }
-        : { gasPrice: feeEstimate.gasPrice }),
-    });
+    const feeParameters = feeEstimate.maxFeePerGas
+      ? {
+          maxFeePerGas: feeEstimate.maxFeePerGas,
+          maxPriorityFeePerGas: feeEstimate.maxPriorityFeePerGas,
+        }
+      : { gasPrice: feeEstimate.gasPrice };
+    const transactionContext = [
+      `${chain.chainKey} (${chain.chainId})`,
+      `gas=${gasEstimate.toString()}`,
+      ...Object.entries(feeParameters).map(
+        ([key, value]) => `${key}=${value?.toString() ?? "undefined"}`,
+      ),
+    ].join(" | ");
+
+    let hash: Hex;
+    try {
+      hash = await chain.walletClient.writeContract({
+        address: finalRequest.address,
+        abi: finalRequest.abi,
+        functionName: finalRequest.functionName,
+        args: finalRequest.args,
+        account: walletAccount,
+        chain: chain.walletClient.chain,
+        gas: gasEstimate,
+        ...feeParameters,
+      });
+    } catch (error) {
+      console.warn(
+        `Transaction submission failed on ${transactionContext}: ${error instanceof Error ? error.message : String(error)}`,
+      );
+      continue;
+    }
 
     console.log(
       `Submitted ${chain.chainKey} ${finalRequest.functionName} tx ${hash}`,
     );
-    const receipt = await chain.publicClient.waitForTransactionReceipt({
-      hash,
-    });
-    console.log(
-      `Confirmed ${chain.chainKey} tx ${hash} in block ${receipt.blockNumber.toString()} using ${receipt.gasUsed.toString()} gas.`,
-    );
+    try {
+      const receipt = await chain.publicClient.waitForTransactionReceipt({
+        hash,
+        timeout: 180_000,
+      });
+      if (receipt.status === "success") {
+        console.log(
+          `Confirmed ${chain.chainKey} tx ${hash} in block ${receipt.blockNumber.toString()} using ${receipt.gasUsed.toString()} gas.`,
+        );
+      } else {
+        console.warn(
+          `Transaction reverted on ${transactionContext}: tx ${hash} in block ${receipt.blockNumber.toString()}.`,
+        );
+      }
+    } catch (error) {
+      const status =
+        error instanceof WaitForTransactionReceiptTimeoutError
+          ? "unconfirmed"
+          : "confirmation failed";
+      console.warn(
+        `Transaction ${status} on ${transactionContext}: tx ${hash}: ${error instanceof Error ? error.message : String(error)}`,
+      );
+      continue;
+    }
   }
 }

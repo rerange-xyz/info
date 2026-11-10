@@ -17,6 +17,7 @@ const DEFAULT_CANDIDATE_SCAN_LIMIT = 64;
 const DEFAULT_BATCH_SIZE = 12;
 const DEFAULT_DISTANCE_MULTIPLIER = 1.1;
 const DEFAULT_LOOP_INTERVAL_MS = 0;
+const DRY_RUN_RESOLVER_ADDRESS = "0x000000000000000000000000000000000000dEaD";
 
 const DEFAULT_RPC_URLS: Record<SupportedChainKey, string[]> = {
   ethereum: [
@@ -258,7 +259,7 @@ function createChainConfig(params: {
       rpcUrls,
       publicClient,
       walletClient: null,
-      resolverAddress: null,
+      resolverAddress: DRY_RUN_RESOLVER_ADDRESS,
     };
   }
 
