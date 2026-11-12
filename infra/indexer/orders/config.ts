@@ -40,14 +40,9 @@ const CHAIN_NAME_BY_KEY: Record<SupportedChainKey, string> = {
 const DEFAULT_RPC_URLS: Record<SupportedChainKey, string[]> = {
   ethereum: [
     "https://ethereum-rpc.publicnode.com",
-    "https://eth.llamarpc.com",
     "https://gateway.tenderly.co/public/mainnet",
   ],
-  base: [
-    "https://mainnet.base.org",
-    "https://base-rpc.publicnode.com",
-    "https://base.llamarpc.com",
-  ],
+  base: ["https://base-rpc.publicnode.com", "https://mainnet.base.org"],
 };
 
 const SUPPORTED_CHAINS: Array<{
